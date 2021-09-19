@@ -1,0 +1,2027 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>隨意使用房 - 02-灰戈導入</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #7289da;
+            background-color: rgba(114, 137, 218, .1);
+            font-weight: 500;
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0.1em;
+            padding: 0.2em 0.35em;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/687687199130779669/0197cd96c014d774b78060639fd36473.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">隨意使用房</div>
+        <div class="preamble__entry">翻滾吧！蛋炒飯！ / 02-灰戈導入</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="887750105824886844" id="message-887750105824886844" title="Message sent: 16-Sep-21 01:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">你不記得……自己為什麼會出現在這裡。
+瑣碎的記憶零散地在腦海中打轉，卻還是拼湊不出完整的脈絡。
+你只記得自己先前是在蛛網城的，因為某個渾蛋的出現，被騙得衩褲都不剩，在一間小酒吧裡喝悶酒。對了，那杯酒還是老闆娘請你的，那酒不知道是怎麼回事？難喝歸難喝，但是幾杯下去一下子就什麼都不記得了。這麼想起來……酒水或許被加了什麼。
+回到現在的情況，你注意到你被關在一個木造大牢龍裡，你的周圍還有十餘人，神智似乎有些不清楚，也許是被下了什麼藥。從欄杆間的縫隙看出去，天色已經昏暗，你注意到不遠外有火光搖曳，還有男人談笑的聲音。更遠處還有幾個臨時搭建起來的帳篷。
+
+這時候男人們的談笑突然安靜了下來，接著有個聲音粗獷的傢伙說：「今天該輪到誰？」
+「札克是你吧？」另一個男人回答。
+「不是吧？昨天也是我！前天也是我！該換人了吧！」這個人大概就是札克了，聲音有點高，年紀應該比其他幾個人年輕。
+「叫你去就去！」聲音粗獷的傢伙一聲令下，對話又終止了。
+不久，一個男人提著一個桶子朝你的方向走來，口中不斷咒罵。
+
+「豬玀們！吃飯了！」你聽見開鎖的聲音，鎖鏈與鎖鏈摩擦的框啷聲，以及牢門絞鍊轉動，尖細刺耳的聲響。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 01:37 AM</span>
+
+            <div class="chatlog__message " data-message-id="887754080016019456" id="message-887754080016019456" title="Message sent: 16-Sep-21 01:37 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈渾圓的臉龐睜開一道癡呆的眼縫，迷迷糊糊地看著牢籠外的景象。儘管神智不清，但他依然能感覺到自己肚子裡空虛的痛苦。
+灰戈的食量是一般人的兩倍以上，至少要吃兩人份才會飽，如果長時間不吃東西他更是受不了，餓肚子的怒火堪比野蠻人的狂暴。聽到吃飯了的聲音讓他瞬間打起精神……或至少是他現在能做到最精神的程度。
+雖然那個聲音前面似乎說了什麼讓人不爽的話，但那都被吃飯給掩蓋過去了，只要被騙光錢的他現在能好好吃上一頓，那就什麼都好。
+一聽見開飯的聲音，原本還靜靜躺在地上的肥貓人，彷彿裝死的殭屍伏擊獵物般瞬間撐起身子，往聲音的來源撲過去，叫著：「我肚子好餓啊！」</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 01:42 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 02:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="887771757279342652" id="message-887771757279342652" title="Message sent: 16-Sep-21 02:48 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「哇嗚！什麼鬼？」才剛剛開門，便遭遇了氣息，男子一聲驚呼後被撲倒在地。那在手中的鐵桶也隨之哐啷地落下，散發著怪味的流質物潑灑一地。
+其餘神智不清的人，一聽見開飯便跟在你身後跑出來，紛紛蹲下來有的用手把混著泥土的湯水捧起來喝，有的直接趴下來舔食，畫面十分詭異。
+如同野獸被激起的食慾，你的嗅覺也變得十分靈敏。遠遠地聞到營火那兒烤肉的香氣。
+比起地上這攤不明物，肉香更激起你的食慾。
+
+而不遠處的其餘男人們似乎聽見了這聲驚叫與鐵桶落地的聲音，於是哄笑成一片。
+「呦！這都能摔倒，是不是小嬰兒不會走路。要不要媽咪給你餵奶喝？」
+「沒卵蛋的！你是不是怕黑呀！等等守夜就交給你了啊！營火陪著你，不怕不怕喔！」
+「遇上鬼還不快上，老子一輩子還沒見過鬼呢！等等告訴我是怎樣銷魂的。」
+因為被東西遮住了視線，完全沒有察覺到這兒發生的異常。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 04:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="887981353029742612" id="message-887981353029742612" title="Message sent: 16-Sep-21 04:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">噁心的流質物勾起灰戈年幼時苦澀的記憶，加上不久前被騙錢的慘痛經歷，讓他苦得快流出淚來。
+正當回憶要繼續進展時，烤肉的香氣打斷他的思緒，喚醒覓食的本能。灰戈撐起身體、雙眼放光、踩過被撲倒的人，向著烤肉的方向狂奔而去，「喵呀啊啊啊啊！烤肉！」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 05:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="887989553917489193" id="message-887989553917489193" title="Message sent: 16-Sep-21 05:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「呦！你這小子終於不爽了嗎？跑那麼快做什麼？來啊！來啊！快過來呀！讓老子好好地教訓你。」
+「啊屁啊！你在叫什麼？再大聲一點啊！」
+因為背對著篝火，他們看不清你的樣子，瞧有人影靠近，下意識便以為是衰小子札克，只有其中一個人感覺哪裡不對。
+「怎麼覺得……那不是札克。」
+「不是札克還能是什……」
+隨著你逐漸靠近，身形和樣貌也逐漸清晰，臃腫的身形和札克那乾柴般地身子完全不同。
+當最靠近的一個人看清楚你的樣子時，大聲驚呼：「靠！是那隻肥貓！他是怎麼跑出來的！」
+彎下身要撿起地上的武器攻擊，不過你和他距離不過十多尺，對於失控狀態的你而言不過一步之遙而已。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 05:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="887992945209401374" id="message-887992945209401374" title="Message sent: 16-Sep-21 05:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈看見一人要撿起武器，戰鬥的反射立刻讓他做出了正確的行動——他毫不停歇的衝向那人。
+超重的肥肉團塊，加上斑貓人武僧的高速奔跑，讓灰戈的圓肚如同暴走的火車頭撞在剛撿起武器的男人身上。沉重的衝擊力將他撞飛數尺，越過營火落在另一端的地上。
+灰戈停了下來，亮出雙爪，用餓瘋了的目光盯著烤肉，以及周圍的障礙，「給我吃烤肉，什麼事都好談！」</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 05:27 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 06:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="888005829314375692" id="message-888005829314375692" title="Message sent: 16-Sep-21 06:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">【灰戈，請通過一個〈威嚇〉檢定】</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 11:22 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 06:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="888008453036052511" id="message-888008453036052511" title="Message sent: 16-Sep-21 06:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">1d20-1 超強威嚇！</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/544462904037081138/826b76664e4c68ff4d29076c48a02bed.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="HKTRPG#4989" data-user-id="544462904037081138" style="color: rgb(231,210,179)">HKTRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Sep-21 06:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="888008456617988126" id="message-888008456617988126" title="Message sent: 16-Sep-21 06:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="乙名＠對他使用炎拳吧#3639">@灰戈</span> 
+1d20-1：超強威嚇！
+16[16]-1 = 15</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 08:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="888031582823280640" id="message-888031582823280640" title="Message sent: 16-Sep-21 08:00 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">正面遭到撞擊的男人，向後飛了幾尺才落地，接著在地面上滾了好幾圈才停下來。
+其餘所有人瞧見這一幕，都被你強大的武力嚇著了。
+「有話好說，有話好說……你說你要什麼？我們都給你。」一隻手抱緊了武器，另一隻手半舉起往後退。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 10:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="888070324954988615" id="message-888070324954988615" title="Message sent: 16-Sep-21 10:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈滿意的摸了摸肚子，說：「不要打擾我吃飯！」
+他走到營火邊抓起一串烤肉，用嘴巴吹了吹後就吃了起來。在滿足肚子裡的飢渴的同時，他終於有閒心好好思考和觀察周圍的環境。
+灰戈一邊咬著烤肉，一邊看了看四周。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 11:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="888084145157337099" id="message-888084145157337099" title="Message sent: 16-Sep-21 11:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">扯著肉，喝著酒。回顧四周，這裡是個密林，周圍的樹全是紅杉，想來海拔位置相當高。就是不知道現在在哪一座城市。
+其餘男人遠遠看著你，不敢進也不敢退，就這麼遠遠地看著你用餐。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 08:13 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 11:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="888085430988337193" id="message-888085430988337193" title="Message sent: 16-Sep-21 11:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">肚子得到滿足，灰戈的心情好上不少，更別說這是自從他被騙錢後最好的一餐了，他的臉上洋溢著幸福的光芒。
+「喂！你們也吃啊，可別想打什麼小算盤呀喵！」灰戈心情一好，便把幾串烤肉丟給男人們，豪邁地坐在地上問：「這裡是什麼地方？你們把我帶到這想做什麼？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 11:35 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 11:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="888090640611676171" id="message-888090640611676171" title="Message sent: 16-Sep-21 11:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">幾個男人交頭接耳一番，最後一位身材壯碩的男子站出來，硬是擠出了諂媚的微笑，坐到相隔不遠的地方，其餘人則繼續站在原處。
+「我們怎麼會有什麼算盤呢？何況我們幾個一起上去，也打不過您一個。」男子伸手拿起一串烤肉，咬了一口接著說：「這肉是下午時候才獵到的鹿，咬起來可嫩得。您也是這麼覺得吧？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="888093217524957277" id="message-888093217524957277" title="Message sent: 17-Sep-21 12:05 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈的胖臉皺起眉頭，不悅地瞪著壯漢，一眨眼就過去捏住了他的耳朵，在他耳邊喊道：「廢話少說，你瞧不起我是不是？我腦袋可清楚得很！坦白從寬，抗拒從嚴！」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="888095837060743288" id="message-888095837060743288" title="Message sent: 17-Sep-21 12:15 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「你說得是……我們怎麼敢欺騙您呢？」男人諂笑著說，但是臉色卻不像他嘴上說得那麼好看。
+「這裡是葛恩特北部的森林，準備繼續往北方走。您也知道，做我們這行的不過是拿錢辦事，把要的貨送過去，就不關我們的事情了。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="888097421677187132" id="message-888097421677187132" title="Message sent: 17-Sep-21 12:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「貨？人口販賣是嗎？」灰戈又咬了口烤肉，吃得津津有味，「嗯～真是太好吃啦！」</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 12:23 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:27 AM</span>
+
+            <div class="chatlog__message " data-message-id="888098850743656480" id="message-888098850743656480" title="Message sent: 17-Sep-21 12:27 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「您知道了，也不必說得這麼明白嘛！何況我們什麼都送，只是恰巧這次是人而已。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="888101613565251654" id="message-888101613565251654" title="Message sent: 17-Sep-21 12:38 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「行行。」灰戈放開男人，重新坐了下來，「把我原本帶在身上的東西都拿來，之後該幹什麼幹什麼去，我們井水不犯河水啊。」
+他一邊咬著烤肉一邊想，之後他就要回去找那老闆娘算帳，還有那個騙他錢的傢伙，早晚要他十倍奉還。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="888104380925112341" id="message-888104380925112341" title="Message sent: 17-Sep-21 12:49 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「原本帶在身上的東西？我也不知道在哪兒。畢竟貨也是轉了好幾手才到我們這兒的。」男人說。這時，你隱約聽見後方有些許動靜，注意到剛剛退在旁的其中一人，在說話過程中早已不見蹤影。
+
+「喝！阿！」身後傳來大吼，一個木棍朝你後腦勺劈下來。</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 12:52 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="888105938358247434" id="message-888105938358247434" title="Message sent: 17-Sep-21 12:55 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">菜。
+太菜了。
+灰戈大老遠就聞到了一股菜味。
+他都不用轉頭，光聽聲音就能想像到攻擊是怎麼來的，只見他身形輕輕一挪改變受擊的位置，渾身一震、肥肉一抖，就把落在背上的棍棒給彈了回去。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 01:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="888111892181168159" id="message-888111892181168159" title="Message sent: 17-Sep-21 01:19 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「哇嗚！」偷襲者受不住衝力，緊握的棒子飛了出去。連帶著人也倒退了好幾大步。
+「可惡啊！」瞧偷襲失敗，坐在篝火邊的男子，拽起衣服下緣，抽出藏在地下的匕首，從側面朝你身上刺過來。</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 01:23 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 01:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="888120694657925191" id="message-888120694657925191" title="Message sent: 17-Sep-21 01:54 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈一邊咬著烤肉，看著匕首刺了過來，稍稍改變姿勢延長臂展，一巴掌把男人拍進篝火裡，然後站了起來，「和平啊，和平，我們安安靜靜吃個晚餐然後分手不好喵？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 02:01 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 02:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="888125373454381096" id="message-888125373454381096" title="Message sent: 17-Sep-21 02:13 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「啊！」架起的篝木，因為衝擊而向周圍傾倒，揚起大量的星火與灰燼。
+男人的衣物燃燒了起來，痛得他在地面上不斷打滾，試圖滅火。
+最後一人與持棍棒的那傢伙見狀不對，趕緊往黑暗的森林逃跑，透過貓眼還看得見他們連連撞了好幾棵樹，翻滾下去。
+
+只不過，隨手的動作，還是帶來了一點點麻煩。帶著還尚未燃燒殆盡的橘紅色火光的乾柴飛了出去，落在滿地的枯枝落葉上，所幸最後沒有點著……畢竟這裡的空氣實在是太濕了，和法索那一帶的悶熱不同，這裡給人一種濕冷的感覺。不知道和蛛網城到底相聚多遠！</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 02:43 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 02:52 AM</span>
+
+            <div class="chatlog__message " data-message-id="888135372964503593" id="message-888135372964503593" title="Message sent: 17-Sep-21 02:52 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">看著人都跑光了，灰戈也不理那個被火燒的男人，他們都是活該。走向剛才被關的牢籠，朝裡面的人喊：「開飯了，有烤肉吃喔！」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 03:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="888143653070065725" id="message-888143653070065725" title="Message sent: 17-Sep-21 03:25 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">當你走近，裡頭那些人全都昏睡過去了，半點兒都沒聽見你說的話。
+靠近地上那攤不明物，就可以聞到一股苦澀地臭味，和當初那杯酒有些相似。大概是食物裡一直被加了東西，才可以那麼長時間控制著所有的人。
+若不然四個人怎麼可能控制的了這麼多的奴隸。正常情況下，要不了多久，肯定發生暴動的。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 11:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="888268489507348520" id="message-888268489507348520" title="Message sent: 17-Sep-21 11:41 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈隨便拍了拍幾個人的臉，試試看能不能把人叫起來，「嘿！起床了！」</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 04:23 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 04:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="888340761999990794" id="message-888340761999990794" title="Message sent: 17-Sep-21 04:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">幾個人被你拍了臉頰，從昏迷中轉醒。然而，看向你的目光卻是呆滯渙散的，嘴巴啊啊幾聲，口水無法控制地從嘴角流出來，滴在你手上。</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 04:29 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 05:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="888363322800500796" id="message-888363322800500796" title="Message sent: 17-Sep-21 05:58 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「噁！」灰戈嚇的縮回手，把口水抹在別人身上，「算了算了。」他離開這些人，一邊吃著烤肉，一邊在營地附近尋找他們留下來的東西，裡面應該有自己的裝備，運氣好說不定還能有額外的收穫。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 06:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="888378437440536616" id="message-888378437440536616" title="Message sent: 17-Sep-21 06:58 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">篝火旁的帳篷裡堆著雜物，從火炬到武器隨意地堆疊。只有乾糧和飲水特別被擺放在一個地方，可以一眼看到。
+除此以外，帳篷中央還有一個小桌，上頭擺著一張地圖，用紅筆畫了各種圖案，只不過沒有圖示告訴你什麼意思。</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 06:59 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="888378535960543283" id="message-888378535960543283" title="Message sent: 17-Sep-21 06:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">【灰戈，請通過一個〈奧術〉檢定】</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 06:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="888378675148513290" id="message-888378675148513290" title="Message sent: 17-Sep-21 06:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">1d20-1 天才的奧術</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/544462904037081138/826b76664e4c68ff4d29076c48a02bed.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="HKTRPG#4989" data-user-id="544462904037081138" style="color: rgb(231,210,179)">HKTRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Sep-21 06:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="888378676633280523" id="message-888378676633280523" title="Message sent: 17-Sep-21 06:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="乙名＠對他使用炎拳吧#3639">@灰戈</span> 
+1d20-1：天才的奧術
+9[9]-1 = 8</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 07:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="888379456064983102" id="message-888379456064983102" title="Message sent: 17-Sep-21 07:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">你在周圍找到了一些裝備和武器。雖然算不上稱手，但也堪用。
+除此之外，還發現了一個錢袋，裡頭裝了10枚金幣，可說是意外之喜。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 12:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="888467224183074848" id="message-888467224183074848" title="Message sent: 18-Sep-21 12:51 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「超爽的！撿到10GP咧！」
+灰戈拿走了自己用得上又不會太重的裝備，剩下的就不管誰能拿去用了。他看著地圖，試圖用自己堆滿脂肪的天才大腦理解上頭的資訊，同時給自己的肚子補充更多烤肉。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 02:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="888484965879283732" id="message-888484965879283732" title="Message sent: 18-Sep-21 02:02 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">好歹還是多年在大陸上打滾的，方位還是判斷得相當準確。
+在地圖上找到現在的位置後，往旁邊探尋一圈，注意到一個用紅筆畫的三角形，一個箭頭指著那裡。
+拿地圖走到外頭，稍稍對照一下方位後，可以判斷出來三角形位置是在山的另一頭。但是詳細的距離，地圖上並未標明。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 05:17 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 10:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="888800014636294174" id="message-888800014636294174" title="Message sent: 18-Sep-21 10:53 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈靠著絕頂聰明的腦袋(智力8)馬上就猜到了三角形代表的是什麼意思，這肯定就是城市的所在地！
+他將手中的烤肉迅速啃光，這時他的肚子已經差不多滿足了，但烤肉還剩下不少。他沒有可以保存烤肉的手段，但吃不到剩下的烤肉又讓他覺得相當可惜，所以聰明的他馬上就想出了辦法——他又拿走一串烤肉，肚子又有空間的時候就直接邊走邊吃！
+向著紅色有角三角形出發！</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 11:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="888807112128487494" id="message-888807112128487494" title="Message sent: 18-Sep-21 11:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">夜裡出發，黑暗的森林對你來說影響卻不是非常巨大，就算拖慢了一點點的進度，你還是在天亮之前爬過了山。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="888807250683109436" id="message-888807250683109436" title="Message sent: 18-Sep-21 11:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">【灰戈，請通過一個〈觀察〉檢定】</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 11:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="888807384422703214" id="message-888807384422703214" title="Message sent: 18-Sep-21 11:23 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">1d20+6 超會觀察的</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/544462904037081138/826b76664e4c68ff4d29076c48a02bed.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="HKTRPG#4989" data-user-id="544462904037081138" style="color: rgb(231,210,179)">HKTRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-21 11:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="888807386180104213" id="message-888807386180104213" title="Message sent: 18-Sep-21 11:23 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="乙名＠對他使用炎拳吧#3639">@灰戈</span> 
+1d20+6：超會觀察的
+12[12]+6 = 18</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 11:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="888808408365547610" id="message-888808408365547610" title="Message sent: 18-Sep-21 11:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">你注意到，前方三十里外有一縷炊煙升起，那裡大概是有人居住的地方。凝望周遭的山腳，發現一條疑似山道的道路，沿著山道走去，應該能夠抵達村莊吧？</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 12:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="888826945167581204" id="message-888826945167581204" title="Message sent: 19-Sep-21 12:40 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">灰戈看到有炊煙升起就興奮了起來，那表示有人在煮東西吃！這樣自己就不用繼續吃又乾又沒味道的口糧了！
+他抖著肥胖的肚子往炊煙的方向快跑過去。</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Sep-21 12:41 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 01:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="888831806068117576" id="message-888831806068117576" title="Message sent: 19-Sep-21 01:00 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">【To Be Continued】</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Sep-21 02:25 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/249145925921013760/a36964bfc662712d893fe10acbc645ab.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="乙名＠對他使用炎拳吧#3639" data-user-id="249145925921013760" style="color: rgb(137,38,202)">灰戈</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="888845998611374130" id="message-888845998611374130" title="Message sent: 19-Sep-21 01:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://youtu.be/7uBqNgxAuBA">https://youtu.be/7uBqNgxAuBA</a></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                                <div class="chatlog__embed-color-pill" style="background-color: rgba(255,0,0,255)"></div>
+
+                            <div class="chatlog__embed-content-container">
+                                <div class="chatlog__embed-content">
+                                    <div class="chatlog__embed-text">
+                                            <div class="chatlog__embed-author">
+
+                                                    <span class="chatlog__embed-author-name">
+                                                            <a class="chatlog__embed-author-name-link" href="https://www.youtube.com/channel/UCuY-zOZxHGbURfDvUSuI0HA">hahahailey</a>
+                                                    </span>
+                                            </div>
+
+                                            <div class="chatlog__embed-title">
+                                                    <a class="chatlog__embed-title-link" href="https://www.youtube.com/watch?v=7uBqNgxAuBA">
+                                                        <div class="markdown preserve-whitespace">Roundabout by Yes (to be continued meme music)</div>
+                                                    </a>
+                                            </div>
+
+                                        <div class="chatlog__embed-youtube-container">
+                                            <iframe class="chatlog__embed-youtube" src="https://www.youtube.com/embed/7uBqNgxAuBA" width="400" height="225"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 45 message(s)</div>
+</div>
+
+</body>
+
+</html>

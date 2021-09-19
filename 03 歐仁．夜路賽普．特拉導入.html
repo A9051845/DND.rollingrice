@@ -1,0 +1,2379 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>隨意使用房 - 03-歐仁．夜路賽普．特拉導入</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #7289da;
+            background-color: rgba(114, 137, 218, .1);
+            font-weight: 500;
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0.1em;
+            padding: 0.2em 0.35em;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/687687199130779669/0197cd96c014d774b78060639fd36473.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">隨意使用房</div>
+        <div class="preamble__entry">翻滾吧！蛋炒飯！ / 03-歐仁．夜路賽普．特拉導入</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="887758910910496769" id="message-887758910910496769" title="Message sent: 16-Sep-21 01:56 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">和大陸不一樣的大地，不一樣的空氣。濕濕冷冷的，就算卡的光輝同樣恩澤著這片土地。依然明顯感受出不一樣的氛圍，如果說法索那是熱情的喧囂，屬於冒險者的天堂；如果說瑪爾法利斯托是瘋狂的幻想，屬於學者與魔法師的溫床；那麼這片土地你能感覺到……一隻匍匐許久的雄師正在淺眠，且似乎快要甦醒了。
+
+現在是清晨，來自瑪爾法利斯托的船舶在愛里恩港停靠，下船的只有零星幾人，望向遠方周圍瀰漫著薄霧，船長說晚一點太陽露出頭，霧馬上就散了。下了船，便看見許多工人忙進忙出，準備將木材綁好上船。這裡是周圍木材的集散地，山上砍伐下來的木頭都會到這裡上船。不過，這裡始終是個小港，畢竟周圍被山地環繞，唯一的出口是大海，腹地太小成不了貝雷港那種航運樞紐。
+另外就是，如果要前往百花之都──「黎浦賽」，便要隨馬車過山路，到山的另一頭去。
+
+一人一龍站在碼頭，一是為了尋找一同成為偶像的成員，為之後的大事業進行準備，另一則有任務在身。不過最終目的都是同一個地方。</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 02:01 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 02:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="887764404559556708" id="message-887764404559556708" title="Message sent: 16-Sep-21 02:18 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「海島的空氣充滿著別樣風情呢。」歐仁伸手遮著晨光說道。
+
+他整了整衣裳，確保傢伙都在身上後，瞥眼看了無人的地方。
+
+「那麼，我的朋友，跟我說說這裡的歷史吧？」他輕聲對看不見的朋友說道。
+
+繞過忙碌的搬運工人，他瞧過幾眼木材，看起來挺適合當作珠寶盒的容器。縱使沒有地圖，在「朋友」的帶領下，他仍能直直走向驛站。
+
+「嘿，有往黎浦賽的車嗎？」歐仁展露出凌曉般的笑容問道。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 03:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="887962810770948098" id="message-887962810770948098" title="Message sent: 16-Sep-21 03:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這裡就是愛里恩港嗎，感覺真不錯呢。」
+
+賽普在港口邊站著，看向那一望無際的海邊自言自語的說道。
+
+她走在稀少人的道路上，感受著撲面而來的海風
+「我宣傳的第一站...就決定是黎浦賽了」。
+
+她在這附近找到了一家開著的驛站，推門而入
+「老闆，現在還有去黎浦賽的車嗎？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 04:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="887971625738305546" id="message-887971625738305546" title="Message sent: 16-Sep-21 04:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">賽普和歐仁一前一後進到驛站。
+推開老舊的木，聽得鉸鏈嘎吱作響。然而，驛站內空空蕩蕩的，一個人也沒有。
+許久後，才有一個頭髮蓬亂的大媽，她揭開吧台左後方的布簾，走出來。一對貓耳頂在頭上，是位貓人族的。
+「吵啥吵，現在幾點而已？哪裡有車給你們呀！而且樓上其他客人在還在睡呢！亂七八雜的，真是的……」揉了揉眼睛，耳朵擺動，看起來被打擾安眠有些不愉悅。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 06:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="888010346688815165" id="message-888010346688815165" title="Message sent: 16-Sep-21 06:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嘿嘿，對不起嘛，美麗的小姐，打擾到您的清夢了。」歐仁單手放在胸前哈腰，眨起一邊的眼睛市儈而笑。
+
+聽見身後相同的願望，他回過頭去，瞥見剛來到這裡的賽普。
+
+「我叫做歐仁，不知該怎麼稱呼這位如麥稈菊日出綻放的女士？」歐仁稍稍抬起身子，仰望著貓人道。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 07:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="888026631606771762" id="message-888026631606771762" title="Message sent: 16-Sep-21 07:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「抱..抱歉！不小心打擾了你的美夢。」賽普稍微向老闆娘低下頭，表達歉意。
+
+在聽到好像有人同樣要去黎浦賽，賽普轉了磚頭，和歐仁對視了一眼，不過也沒太在意。
+
+「果然還是太早來了嗎，算了，先等一下吧。」賽普拍拍自己了臉頰，站在一邊說道。</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 07:41 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 08:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="888035043098906694" id="message-888035043098906694" title="Message sent: 16-Sep-21 08:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「喝～算了，沒事。讓我看看。」大媽揉了揉眼睛，打了個大大的呵欠站到櫃檯前翻動一本冊子。
+「今天……這週都沒有去黎浦賽的馬車。不過，泰迪那傢伙今天似乎要回家去，從紅杉嶺那兒搭到車的機會比這裡大多了。你們能問問他能不能捎你們一程。」大媽把冊子合起來，轉身過去，把玻璃杯子從櫃子拿下來，為開店進行準備。
+「要喝點什麼或是吃點東西嗎？」大媽問。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 08:14 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 08:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="888045096266776576" id="message-888045096266776576" title="Message sent: 16-Sep-21 08:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯原來如此，那那個泰迪在哪裡呢？對了，我也不用吃什麼，一大早打擾你真的是非常抱歉」
+賽普在一邊靜靜等待大媽的回答。</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 08:59 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 08:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="888045488060899389" id="message-888045488060899389" title="Message sent: 16-Sep-21 08:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「謝謝女士，可惜我還有要事在身，不能品嘗到您的手藝。」歐仁擺出無奈的表情說道，「那麼這位叫泰迪的人在何方呢？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 08:57 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="888047736979599400" id="message-888047736979599400" title="Message sent: 16-Sep-21 09:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「樓上呢！還在睡。」大媽指了指天花板，另一手繼續手裡的動作。見你們什麼東西也不點，也就不理會你們了。
+瞧她熟練地取一把黑黝黝不知道是什麼玩意的豆子，倒進另一個帶把手的小盒裡，並開始轉動把手，接著聽得見東西被壓扁磨碎的聲音。</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 09:07 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="888049032780451891" id="message-888049032780451891" title="Message sent: 16-Sep-21 09:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是嗎，那我還是等一下再來好了。對了，你是在做什麼啊？」
+賽普看到大媽把一些豆子放進小盒子裡，開始轉動把手好奇的問到。</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 09:09 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="888050542226571285" id="message-888050542226571285" title="Message sent: 16-Sep-21 09:15 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「磨咖啡豆呀？聽說是從黑暗大陸來的東西。味道苦苦地，也不知道為什麼，喝了幾次就像上癮一樣。每天早上都要來一杯，」
+壓碎的聲音，逐漸被沙子碎粒滾動產生沙沙聲取代。大媽把盒子打開，把黑黝黝的粉末，倒在原先準備好，鋪上濾紙的玻璃漏斗中。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="888051721199321139" id="message-888051721199321139" title="Message sent: 16-Sep-21 09:20 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是嗎，感覺真神奇呢，那我可以要一杯嗎，多少錢」
+賽普在大媽磨咖啡豆的時候聞到了一陣咖啡的香氣，對這個飲料來了興趣。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="888051970714243113" id="message-888051970714243113" title="Message sent: 16-Sep-21 09:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">歐仁深深吸一口芳香，感覺精神也好上不少了。他向貓人報以精神的笑容，隨後走上樓梯，朝貓人指的方位看看房間。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="888055896201109605" id="message-888055896201109605" title="Message sent: 16-Sep-21 09:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「平時是收一枚銀幣的，但瞧你是個姑娘，就請你吧？每天看臭男人，看得都快吐了……滿身是汗的還非得湊過來，討厭死了。不過看你這打扮，是從大陸來的吧？這些年在這裡見了不少，但獨自旅行的女孩子倒是少見得多。」大媽說道，一面把剛剛煮好水的鐵鍋拿起來，滾水慢慢淋澆在漏斗上，一瞬間芬芳四溢，充滿了整個驛站大廳。
+熱水沖下，幾秒時間濾紙就變得褐黃，滲露出介於琥珀色與咖啡色之間的深色液體，一滴滴滴在下方的杯中。
+
+從樓梯往上爬，木造的階梯，因為海水的侵蝕，踩踏起來有些不踏實，但不至於發生垮掉什麼的意外。
+上到二樓，看見一橫排一共五個房間。走廊和階梯的方向平行，又有把手礙事擋著，要繞小小的一百八十度才能通過。</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 09:46 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="888058463379415081" id="message-888058463379415081" title="Message sent: 16-Sep-21 09:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「那就先謝謝老闆娘啦。我先自我介紹一下，我叫賽普&#183;特拉，是一個吟遊詩人，目前在旅行當中！」
+「我跟你說，我們還有一個即將要成立的公司，而我還有一個組合名，叫霜焰之息，如果有一天老闆娘來到了大陸，可能會看到我們的演出喔。對了對了，還有喔，我們........」
+
+賽普一聊到表演的話題，就馬上說了一大堆，聊的很盡興。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="888059397505425428" id="message-888059397505425428" title="Message sent: 16-Sep-21 09:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「知道了，知道了。」大媽擺擺手，沒有很認真的聽。把那杯名為咖啡的玩意擺在你的面前。
+「第一次喝的話，加點糖或牛奶會比較好入口。」於是又從後方的櫃子裡，拿了糖罐和一小杯的牛奶擺在你的旁邊。</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Sep-21 09:51 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="888059508256018443" id="message-888059508256018443" title="Message sent: 16-Sep-21 09:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「剛剛她指的地方是……」歐仁摸了摸下巴，輕手輕腳地踏上樓板，豎耳傾聽房內的聲音。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 09:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="888060364166684722" id="message-888060364166684722" title="Message sent: 16-Sep-21 09:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">自樓梯算來第二間、第三間裡頭都傳來巨大的鼾聲。除此之外，其他房間都相當地安靜，不確定有沒有人在。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 10:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="888064744802623518" id="message-888064744802623518" title="Message sent: 16-Sep-21 10:12 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">賽普加了一點糖和牛奶下去，攪拌一下，之後就一口一口的喝下去。
+剛入口，一點微苦的口感刺激到了味蕾，卻沒有太過於苦澀，糖或牛奶的甜味慢慢的和充滿香氣的咖啡融合在一起，一點點苦味漸漸地被香氣衝過，形成了一種奇妙的和諧感，本來因為在早上下船暈暈的腦袋也清醒了不少。
+
+以前完全沒有喝過咖啡，只喝過一些打汽水（也就是汽水）的她感覺到了新奇，直接喝光了整杯咖啡。
+「這種名為咖啡的飲料真好喝，我以前完全都沒有嘗過呢，我可以買一點以後來喝嗎？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 10:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="888067267194142760" id="message-888067267194142760" title="Message sent: 16-Sep-21 10:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯哼，判斷不出來呢……」歐仁點點頭，隨後搔著頭髮下樓。「哎呀這可怎麼辦呢……雖然這是別人的事情啦……」他低聲自言自語道。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 10:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="888067294473904158" id="message-888067294473904158" title="Message sent: 16-Sep-21 10:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這我不知道，這玩意是泰迪那傢伙搞來的。我這兒也只有一些些而已。聽他說那是他亡妻最愛的東西，也是他們之所以會遇上的原因。」
+大媽聳聳肩膀，接著說：「我知道那些自稱吟遊詩人的，半是騙子，半是喜歡刨根究底打探人家故事的。我想你不是前者，那估計就是後者了。所以先說了，事情是怎樣子我是不清楚啦，每次問他都支支嗚嗚，不太想說。不過既然那玩意是從黑暗大陸來的，估計是在那兒發生了什麼吧？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 10:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="888071694093266944" id="message-888071694093266944" title="Message sent: 16-Sep-21 10:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">倚在樓梯間的歐仁聽著貓人對詩人的評論、黑暗大陸的東西與泰迪的反應，到也頗有趣，殊不知喜歡打探別人故事的另有其人。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 11:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="888086316129087549" id="message-888086316129087549" title="Message sent: 16-Sep-21 11:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「吟遊詩人可不是騙子！就算有也只是少數而已。」
+賽普一邊說著，一邊拿出了凱納斯曼陀林。
+
+「我會把你對吟遊詩人的印象改觀的！」
+說罷，就開始彈奏起了一首曲子。
+
+這首曲子的風格輕柔，賽普慢慢的溫柔的演奏，在清晨彈奏起來更別具一番滋味。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="888086589136314388" id="message-888086589136314388" title="Message sent: 16-Sep-21 11:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">1d20+10 表演，讓老闆娘改觀</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/544462904037081138/826b76664e4c68ff4d29076c48a02bed.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="HKTRPG#4989" data-user-id="544462904037081138" style="color: rgb(231,210,179)">HKTRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Sep-21 11:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="888086591107653642" id="message-888086591107653642" title="Message sent: 16-Sep-21 11:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="一隻魚月#4884">@賽普 &#183; 特拉</span> 
+1d20+10：表演，讓老闆娘改觀
+2[2]+10 = 12</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="888092724224483388" id="message-888092724224483388" title="Message sent: 17-Sep-21 12:03 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「好了好了，別彈了。」大媽似乎對你的音樂不感興趣。
+「小姑娘你爭什麼呢？又不是說你是個騙子，何況你看看現在幾點鐘而已，樓上人還睡著呢？一會兒下來和我投訴，麻煩死了。」
+說著，站在樓梯間的歐仁聽見其中一間房裡傳來動靜，接著一個穿搭整齊的矮人大叔從第四間房走出來。
+「不好意思，先生您可以讓一讓嗎？」對著堵在通道不移動的歐仁，矮人如此說道。
+大媽瞅了樓梯那兒看了一眼，說：「你們要找的人來了，什麼事情自己問問吧？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="888093905655038032" id="message-888093905655038032" title="Message sent: 17-Sep-21 12:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「泰迪先生？阿……久仰大名。」歐仁退出樓梯間，朝矮人一個敬禮。「據說您今天要到紅衫嶺一趟，不知可否讓我等同行呢？」
+
+他謙恭有禮地說著，行的是商業禮儀。
+
+「我們需要在那裡轉乘到黎浦賽，這之間可以充當您的保鑣，不知您意下如何？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="888095697272963153" id="message-888095697272963153" title="Message sent: 17-Sep-21 12:15 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">聽到剛剛的人說出了賽普想說的話，她也附和道
+「也可以載我一程嗎，拜託了！」
+
+說罷就向那個叫泰迪的矮人鞠了一下躬。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="888098602432487524" id="message-888098602432487524" title="Message sent: 17-Sep-21 12:26 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「喔？外地人嗎？」泰迪走下來，大腹便便的體態，走起路來倒是挺靈活的。
+他尋了張賽普附近的椅子坐下來，大媽也馬上端了杯咖啡過來。
+「謝了，西維亞。每天不來這一杯，總覺得身體不舒爽啊！哈哈！」泰迪大笑，拿起咖啡杯，小啜一口。「不愧是妳，我瞧沒有其他人泡得比妳好了。」
+大媽不以為意，說道：「這話我記下來，下次和你女兒說說。然後，那還有兩個人在等你回應呢！」
+泰迪彷彿才想起自己忘了什麼事情，說：「抱歉抱歉，人老了啊！你們要去黎浦賽嗎？我瞧你們也不是壞人，我的馬車倒是可以載你們去，保鏢就不用了。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 12:29 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 12:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="888103410900029450" id="message-888103410900029450" title="Message sent: 17-Sep-21 12:45 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「真是太謝謝您了。」歐仁笑容如日，來到泰迪的另一邊坐下。「我叫做歐仁，歐仁．夜路，請多只指教。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 01:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="888119746749431909" id="message-888119746749431909" title="Message sent: 17-Sep-21 01:50 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「不謝不謝，跨海過來挺辛苦的。很久以前也是在海上討生活的，上了陸地還找不到交通工具，這時候心情真的會很糟糕。所以我懂的。」泰迪呵呵笑著說，「年紀大了，就會想起來以前的事情，我是馬克斯，馬克．泰迪，叫我馬克斯就好了。叫我泰迪反倒常常沒意識到在叫我，呵呵。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 01:52 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 09:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="888230120660299887" id="message-888230120660299887" title="Message sent: 17-Sep-21 09:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「知道了，馬克斯先生。」歐仁點頭道，「聽說您的老家在紅衫嶺，那是個什麼樣的地方呢？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 09:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="888234428336308254" id="message-888234428336308254" title="Message sent: 17-Sep-21 09:26 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「哪有什麼好說的，哈哈！」馬克斯大笑幾聲，「方圓百里全是紅杉木，也才因此得名的。若說好處吧？大約只有傍晚時分，可以遠眺紫紅色的雲海於腳下罷了。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 08:12 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 01:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="888471654223708180" id="message-888471654223708180" title="Message sent: 18-Sep-21 01:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">聽到歐仁和馬克斯兩個人聊的很開，在一旁的賽普呆呆的聽著他們的對話。
+
+可能是在早上太早起來的原因，即便是咖啡也不能讓賽普的腦袋完全清醒，只隱隱約約的聽到了他們好像在聊紅杉嶺。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 01:09 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 12:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="888637518554202142" id="message-888637518554202142" title="Message sent: 18-Sep-21 12:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「真的嗎？還真難想像那種美景在眼前是什麼樣子。」歐仁躺在椅背上，雙眼看著斜上方的天花板，好像日薄西山就在眼前似的。
+「雖然我是做珠寶生意的，但這樣的寶石才是最燦爛的呢。」看似恍神了一會兒，他又重新把目光放回泰迪身上。「美景、美舍、美食，這麼一想，英希思王國還真是富有呢。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 12:08 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 12:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="888643954952781844" id="message-888643954952781844" title="Message sent: 18-Sep-21 12:33 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「富足嗎？哈哈！確實呢！」馬克斯大笑幾聲，「不像大陸那兒叫瑪爾法利斯托的國家，動不動抓人。尤其對非人類的傢伙特別不友好，我這樣子倒還好……若是西維亞那種長著獸耳朵的傢伙入境，怕是連船都下不了就被抓走了。」
+馬克斯像是聊開懷了一樣，不知道是因為你稱讚了他的國家，抑或是話題投其所好的原因。但是似乎沒有想到你可能來自那個國家。
+「一大清早的，吵死了。果然是老爹你啊！」一個身材魁梧的半獸人走下來。「這兩個人是外地來的嗎？喔～龍裔的小姑娘，讚歎我美麗的音樂女神啊！這位美麗的女孩，可否願意和我共進一份晚餐，噢不……早餐嗎？」
+「嗯哼，騙子來了。」西維亞哼一聲小聲說。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 02:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="888674586252697682" id="message-888674586252697682" title="Message sent: 18-Sep-21 02:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯？什..什麼？」賽普隱隱約約好像聽到有人叫她，楞了一下，呆呆的轉過頭來看著那個半獸人。
+「你剛才在說什麼？我沒聽清楚」賽普歪著頭問道。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="888678997200879627" id="message-888678997200879627" title="Message sent: 18-Sep-21 02:53 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這位美麗的女士，您好，我的名字是安東尼．韋德羅西，可以叫我韋德先生。當然！如果你願意直接稱呼我的名字，那是我無上的榮幸。讚歎美麗的音樂女神，讓我們有這樣美麗的相遇。不知道您是否願意和我共進一份早餐呢？一同欣賞這風和日麗的早晨。」半獸人不厭其煩地重述了一次</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 02:55 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 02:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="888680371955318784" id="message-888680371955318784" title="Message sent: 18-Sep-21 02:58 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「呃..好喔」面前的半獸人說了一大堆，賽普感覺這還沒清醒的腦袋裝不下怎麼多資訊。
+出於禮貌，賽普還是做了一下自我介紹「那我也自我介紹一下吧，我的名字叫賽普&#183;特拉，是個吟遊詩人。請多多指教韋德先生。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="888685434098569216" id="message-888685434098569216" title="Message sent: 18-Sep-21 03:18 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「哈哈，那種地方阿，唉……人心不古了。」歐仁陪笑道，嘴角顯露的是發自內心的竊笑，笑那些迂腐的貴族官員。
+回頭看見半獸人朝身邊的女子示好，歐仁聽的也挺開心的，詩人的文采一直都為他所喜。
+「看來這不是第一次了？」歐仁的視線從韋德身上帶起，經過貓人回到馬克斯身上。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 03:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="888685710608044042" id="message-888685710608044042" title="Message sent: 18-Sep-21 03:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「沒關係，美麗的女士您大概沒有聽清楚吧？我可以再說一次……」就在這時候，原本還在和歐仁談天的馬克斯，停了下來。
+「韋德羅西！」語氣中似乎帶有些慍怒。
+「是，老爺。您有什麼吩咐嗎？」韋德羅西轉過頭，對著馬克斯諂媚地笑。
+「等等要回去了，你的車準備好了嗎？睡得比我還要晚，不是說好今天要很早出發了嗎？」
+「是！是！您說的是！這就去準備！」離開時，又回頭對著賽普擠眉弄眼一下，才戀戀不捨地離開。
+
+「抱歉啊！他那人就是這樣，希望妳不要太在意。」馬克斯嘆了一口氣，「他以前是位吟遊詩人，後來發生了一些事情，才做了我們家的車夫。妳也是位吟遊詩人吧？不過妳似乎挺沉默的，有些令人意外。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 03:25 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 03:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="888688567554027551" id="message-888688567554027551" title="Message sent: 18-Sep-21 03:31 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「不鳴則已，一鳴驚人。像小姐這樣的詩人，說不定才是令人驚豔的類型呢。」歐仁附和著馬克斯，悠閒地說。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 03:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="888689699416338462" id="message-888689699416338462" title="Message sent: 18-Sep-21 03:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「沒事的馬克斯先生，我也不在意。我也只是會彈奏一些樂器和唱歌而已，並不是什麼厲害的詩人啦。」
+賽普轉過來撓撓頭，對馬克斯和歐仁說道。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 04:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="888702008259911691" id="message-888702008259911691" title="Message sent: 18-Sep-21 04:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「能學會一技之長的人都相當厲害啊。不像我活到這把年紀了，也沒什麼能耐，真的是白活了。」說著，馬克斯把裡頭的咖啡一飲而盡。
+「我出去瞧瞧，韋德羅西那傢伙沒人盯著，肯定在瞎混。你們準備好了也出來吧？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 05:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="888713003694981120" id="message-888713003694981120" title="Message sent: 18-Sep-21 05:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「怎麼會呢，海納見識也是一種能耐呀。」歐仁隨對方一同起身，盡量與馬克斯保持同樣的節奏。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 05:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="888714278289432678" id="message-888714278289432678" title="Message sent: 18-Sep-21 05:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「對啊，我也只是遊歷了幾年而已，和馬克斯先生不一樣的，你也很厲害啊」
+賽普對馬克斯讚賞了一番，之後便跟在他們後面。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 08:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="888758305370026024" id="message-888758305370026024" title="Message sent: 18-Sep-21 08:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「我也只是個小商人罷了，也沒經歷過什麼大危險，也沒膽子去冒險什麼的。」馬克斯笑了笑說，但神色似乎有些沉悶。
+「之後路程，中間還會停車一次，才到紅杉嶺。休息幾天之後，就讓安東尼送你們過去黎浦賽吧？你們還要準備一些糧食嗎？」
+
+原本還慢悠悠搬著飲水糧食的韋德羅西，一看見老闆出來，立馬認真起來。
+你們一邊說著，一邊朝馬車的方向走去。那是一輛木造的小馬車由兩匹騾子拉動，主體是紅杉木。車內可以乘坐三至四人，駕駛座可以載兩人。門把一側有掛勾可以放油燈，後面有個小平台能綁少許的物品。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 08:08 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 08:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="888762391028985896" id="message-888762391028985896" title="Message sent: 18-Sep-21 08:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「我再次對您的協助表達感謝。」歐仁一手放在胸前對馬克斯微微欠身。「口糧我自己有準備，不用煩勞您了。」
+
+語畢，他踏著輕盈步伐上車，挑了車內靠近駕駛的座位坐下了。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 01:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="888846228975128617" id="message-888846228975128617" title="Message sent: 19-Sep-21 01:57 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「我也有一些備用的口糧可以先頂着。還是再感謝一下馬克斯先生載我一程」
+
+賽普向馬克斯稍微點頭，稍後就跟從著歐仁的腳步，走上馬車，在歐仁對面的位置坐下了</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Sep-21 01:59 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 02:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="888854447608979517" id="message-888854447608979517" title="Message sent: 19-Sep-21 02:30 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「啊？他們也要搭車啊？」韋德羅西這才得知這個訊息。
+於是，趁著馬克斯還在確認些事情，而疏忽了這裡發生什麼，韋德羅西拉開窗戶，對賽普說：「這位美麗的女士，我的身側尚且空缺著，如果你願意，可以和我一同領略山林的風光在歌聲與樂器的相伴中前行。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Sep-21 02:34 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 06:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="889090416073404426" id="message-889090416073404426" title="Message sent: 19-Sep-21 06:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「不用了韋德先生，謝謝你的好意。」賽普婉拒了韋德羅西的建議</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 08:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="889127025221201921" id="message-889127025221201921" title="Message sent: 19-Sep-21 08:33 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「竟然是這樣嗎？你不願意，我也不多強求了……」韋德羅西露出落寞的神情，關上了窗戶，接著背對著你們，把手舉向空中。接著，你們聽見他對著天空高唱：「噢！我美麗的音樂之神，您將女孩帶到我的身邊，然而她似乎並不喜歡我……難道！我的戀情是攀折的花朵，還沒綻放就要凋零……不！我不相信，我的神啊！這是你給予我都試煉吧！我……」
+「韋德羅西！你在做什麼？都弄好了嗎？」
+「都好了！都好了！隨時都能出發！」他迅速地把手伸回來，對著走來的馬克斯行了個禮，卻有種欲蓋彌彰的感覺。
+
+馬克斯上了車，在歐仁所在的一側坐下來，問：「他剛剛沒有做什麼吧？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Sep-21 08:47 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/868924341176369192/29ccfa16a6fee379a679f4850a696588.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="一隻魚月#4884" data-user-id="868924341176369192" style="color: rgb(137,38,202)">賽普 &#183; 特拉</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 09:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="889137144369655829" id="message-889137144369655829" title="Message sent: 19-Sep-21 09:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「他剛剛問我要不要去他旁邊坐，我覺得有點麻煩他所以拒絕了而已，應該沒什麼大事？」一旁的罪魁禍首還不知道是自己傷了韋德羅西的心，說道。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/422799061133950978/7e48a12496630a6c9603c9dfc366f717.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ernest#1899" data-user-id="422799061133950978" style="color: rgb(137,38,202)">歐仁．夜路</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 09:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="889137473156964353" id="message-889137473156964353" title="Message sent: 19-Sep-21 09:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「詩人們總是這麼多情多意，請先生別放心上。」歐仁聳聳肩，擺出無奈而笑的樣子。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5968199e1c3f093352067c3111a9b3b4.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 09:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="889138519434477588" id="message-889138519434477588" title="Message sent: 19-Sep-21 09:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">一下子馬克斯就聽懂賽普說的話，肯定又趁著自己不注意騷擾了客人。
+「韋德羅西！」也許是剛好，也許是直覺大難臨頭，在馬克斯大喊之際，馬車的輪子緩緩動了起來……</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="889138562069581834" id="message-889138562069581834" title="Message sent: 19-Sep-21 09:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">【To Be Continued】</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 57 message(s)</div>
+</div>
+
+</body>
+
+</html>
