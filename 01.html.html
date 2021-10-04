@@ -1,0 +1,4375 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>隨意使用房 - 01-梅．翡翠導入</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #7289da;
+            background-color: rgba(114, 137, 218, .1);
+            font-weight: 500;
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0.1em;
+            padding: 0.2em 0.35em;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/687687199130779669/0197cd96c014d774b78060639fd36473.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">隨意使用房</div>
+        <div class="preamble__entry">翻滾吧！蛋炒飯！ / 01-梅．翡翠導入</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 01:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="887749839125901352" id="message-887749839125901352" title="Message sent: 16-Sep-21 01:20 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">愛梅萊事件過去了一段時間，你一路驅車前往那位雇主所在的地方。
+你沒有見過這位雇主，只知道是個相當年輕的孩子……而且相當有錢。畢竟這一趟不下百金的吃住花銷，全數由她來支付，僅僅只為了一本毫不起眼的食譜。你稍稍翻閱過這本食譜筆記，除了字跡潦草難以辨讀外，更是一本密碼書，需要花費時間破譯才行。
+從森林進入平原，最後又進入森林，前前後後花費了近四十天時間，才抵達這片為群山繚繞的安樂山鎮──「紅杉嶺」
+紅杉嶺，顧名思義周圍的植被多是紅杉。走在山間小徑間，一棵棵百尺有餘的紅棕色巨木佇立，分支出去的樹冠將天空吞噬，只有零星的陽光穿透，沒有百年千年的時光是做不到的。在微光的引導中一路前行，花費數日時間才脫離，一時間看見陽光還十分的不適應。
+
+最終，馬車在一間宅邸前停下來。
+三層樓高，橫幅百餘尺，小小巧巧的，並不怎樣宏偉，但在這樣偏僻的山鎮，已經算相當了不得的建築了。門外有個相當眼熟的家徽，你知道這是你的雇主──「夏洛特．泰迪」的住所。
+才剛剛下了馬車，你看見宅邸的大門打開了，一個金髮半精靈走出來，瞧她衣服頭髮好像有些凌亂，不知道發生什麼。不過，很快便有一個中年婦人急急忙忙追出來說道：「大小姐，你的頭髮還沒整理好，不要跑呀！」
+不過少女似乎沒有理會她，走到你的面前。
+「食譜筆記是在你那兒嗎？我是夏洛特．泰迪。」站在你的面前，這才注意到，她的身高只到你的下頷而已。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 08:14 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 01:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="887751861208223785" id="message-887751861208223785" title="Message sent: 16-Sep-21 01:28 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅推了推眼鏡，打量著來人。既然雙方都了解彼此的身份，她乾脆省去無謂的客套說話，直接從背包取出一本厚重的筆記──這正是少女渴望得到的那本食譜。
+
+「這食譜有什麼特別嗎？」精靈擺正書本，向少女展示了食譜的封面，卻沒有立即交出的打算。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 02:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="887765341936156742" id="message-887765341936156742" title="Message sent: 16-Sep-21 02:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">原本死死盯著筆記的夏洛特，看了你一眼，問道：「你做什麼問這個……嘛！告訴你也無妨，高祖父網羅尋訪世界各地，網羅天下的各種食材，替皇室創造出無數美味的料理。如今國宴上用的食譜也氏高祖父遺留下來的。也是這樣子，我們泰迪氏才被國王封了爵位，世世代代做皇室的御廚。」
+夏洛特頓了一下，輕舔一下有些乾燥的嘴唇，繼續說：「大部分的食譜是留下來了，但是陪著他一生的那份筆記卻不見了，裡頭全是老人家他對食材的理解與烹飪的思路，這種無價之寶說什麼也不能讓它遺失。我也是花了許久時間，才得到一些消息，派人去尋的。這樣子應該可以了吧？」
+說完，夏洛特便伸手要去取那本厚重的筆記。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 11:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="888084032468967505" id="message-888084032468967505" title="Message sent: 16-Sep-21 11:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是嗎。」她微微頷首，接受了少女的說法。
+
+「他也許是一位出色的廚師，但絕不是一位合格的寫手。」語畢，她面無表情地以雙手捧著書本，將食譜遞向少女。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">16-Sep-21 11:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="888088294896861216" id="message-888088294896861216" title="Message sent: 16-Sep-21 11:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">飛快地從你的手裡，把筆記拿走，深怕下一秒鐘就會被其他人搶走一樣。用手把書衣上的灰塵拍掉後，又匆匆地轉過身，進到屋裡。
+不確定是不是聽錯了，在她回過頭去之時，隱約看見她用口型說了聲：「謝謝妳。」
+
+後頭的婦人，瞧自家大小姐這般模樣趕緊替她道歉，說：「這孩子平常很少見到外人，母親過世了，父親在外工作，很久才回來一次，周圍能說得上話的就我一個老媽子……都是這樣才讓她變得這般不善與人交際，實在慚愧。對了，小姐您有什麼行李嗎？從那兒匆匆趕過來也花了不少時間吧？進來屋裡休息一下吧？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 03:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="888319944935239690" id="message-888319944935239690" title="Message sent: 17-Sep-21 03:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈脫下帽子，朝少女點了點頭，以行動代替說話回應了她的答謝，又向婦人說道：「她已經比半數人都更懂得禮儀了。」
+「感謝，行李也只有背包而已，我繼續背著就可以了，還請妳帶路。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 04:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="888335523008118805" id="message-888335523008118805" title="Message sent: 17-Sep-21 04:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「啊～沒有的事情。聽老爺說，你們冒險者都有些規矩，不喜歡讓人碰到行囊。是我這老媽子唐突了。」
+
+因為馬車車夫不是個多言之人，一路上沉沉悶悶的，而這婦人嘮嘮叨叨的不斷說，反倒讓人不大適應。
+進到屋裡，先是進入到一個不算太過寬敞的玄關大廳，整體看起來並不是太過奢華，沒有過於鋪張的裝飾物，會客的大廳在前方，其餘還能看見書房、主臥、廚房以及幫傭住的房間還有通往二樓的樓梯。
+
+「那個……翡翠小姐對吧？要紅茶或是『咖啡』呢？」領你去到大廳，婦人從玻璃櫃裡拿杯子下來，轉頭對你問。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 04:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="888343441858240532" id="message-888343441858240532" title="Message sent: 17-Sep-21 04:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅純粹是因為不想欠下別人替自己背負沉重背包的人情，但對於婦人的解釋亦不置可否。
+她一路上保持安靜，耐心聆聽著婦人的說話，雖然對方有些話嘮，但從她的說話當中亦能多少了解得到這家人的生活面貌，倒也不致於使她感覺煩躁。
+
+精靈隨意地打量周圍，稍後就將沉甸甸的行囊放在不擋路的一角，輕輕搥打因長期受壓而變得緊繃的肩膀，詢問道：「咖啡...是那種用豆子沖泡的飲料嗎？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 08:54 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 04:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="888345345870942209" id="message-888345345870942209" title="Message sent: 17-Sep-21 04:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是啊！是老爺從黑暗大陸帶回來的，因為味道太苦了，我這老媽子不怎麼喜愛。倒是大小姐和老爺每天都要來上幾杯，大概是和死去的夫人學的吧？」婦人看向不遠處的一張蛋彩畫像，色彩相當大膽鮮豔，畫中是一位半精靈女子，樣貌和夏洛特有幾分神似，但是更加的成熟端莊。</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 05:09 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">17-Sep-21 06:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="888366604486864906" id="message-888366604486864906" title="Message sent: 17-Sep-21 06:11 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「之前略有耳聞，但未曾有機會嚐試過。」她踱步走到桌椅前，以不發出聲音的方式拉開了一張椅子，端正坐下。
+
+「請給我咖啡，小杯的。」注視著畫像片刻，才開口。</span>
+
+                                <span class="chatlog__edited-timestamp" title="17-Sep-21 11:26 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 12:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="888649511625449472" id="message-888649511625449472" title="Message sent: 18-Sep-21 12:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">聽轉動磨豆器，規律而平穩的聲響。不多久傳來一股獨特而難以比喻的芬芳，帶點苦澀卻不像葡萄酒那種附帶果香、堅果複雜卻又綿密的香氣，而是一種烘焙過帶點煙燻的焦香。
+「那是小姐……噢，夫人小時候的畫像。呵呵，不必在意，就算到現在還是常常叫做，畢竟看著那孩子長大……總是改不過來。」婦人走過來，用端著白瓷杯過來，用小碟子墊在底下。平靜下來黑黝的液體，如同黑曜石般，反射你的臉龐。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 12:55 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 06:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="888734882145120276" id="message-888734882145120276" title="Message sent: 18-Sep-21 06:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「謝謝。」梅朝著婦人點了點頭，略欠身，聞了聞從瓷杯裡飄升起的白煙味道。
+「誘人的香氣。」她優雅地捧著杯子，輕搖晃，看著如同墨水一樣液體掛在杯子內壁，緩緩落下，才開始品嚐──
+
+精靈緩慢地將整杯咖啡喝完，放下空杯，拿出手帕拭抹嘴角，作出了評價：「感謝招待，真是一杯出色的騙局。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 08:55 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 06:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="888739670345805904" id="message-888739670345805904" title="Message sent: 18-Sep-21 06:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">1d20+6 歷史</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/544462904037081138/826b76664e4c68ff4d29076c48a02bed.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="HKTRPG#4989" data-user-id="544462904037081138" style="color: rgb(231,210,179)">HKTRPG</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Sep-21 06:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="888739672463912980" id="message-888739672463912980" title="Message sent: 18-Sep-21 06:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="TeddyBear#0188">@梅．翡翠</span> 
+1d20+6：歷史
+5[5]+6 = 11</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="888746569283813416" id="message-888746569283813416" title="Message sent: 18-Sep-21 07:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">拿在手裡的白瓷杯，如牛奶般潔白，和裡頭黑色的液體形成對比，卻一點也不失違和；杯緣有金線描繪的簡約花紋，襯托出一種低調的奢華感。與其說是餐具，不如說是一個精巧的工藝品……
+墊在下方的磁盤上有個圖案，你似乎有看過它，但是一時間卻想不太起來。
+
+啪、踏、啪、踏──
+才剛剛評價完畢，就聽見急促的腳步聲從二樓奔跑下來。
+接著客房的門被用力地推了開來，只見夏洛特瞪大眼盯著你……正確來說，是你手裡的杯子，接著回頭對婦人，怒道：「你怎麼用了我的豆子？」
+「畢竟是客人來了嘛！」
+「那豆子前天才烘焙好，還要好幾天才能開，不然都浪費了。你怎麼就拿去用了……」說著說著，聲音感覺都快要哭出來了。</span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Sep-21 09:34 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 08:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="888767355885330482" id="message-888767355885330482" title="Message sent: 18-Sep-21 08:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這事我亦有責任，如果只斥罵女士一人，未免有欠公允。」
+她離開座位，慢步走到少女身前，彎著腰、雙手按膝，使視線與少女等齊。
+
+「除了父親之外，妳亦應該珍惜長久以來陪伴在身邊的人。」精靈看向婦人片刻，又回望少女，聲音無比輕柔。
+「即使妳認為女士不理解妳的愛好，亦不要就此閉上心扉。」「試想像，倘若妳昔日願意和女士分享沖泡豆子的知識，她便會知曉適合取用的最佳時機，那是否就不會發生如今的憾事了？」
+
+「從對食譜的執著，我知道妳對烹飪抱有認真的態度。但若要成為出色的廚師，除了懂得處理食材之外，更要讓不懂品味的客人也能理解食物的真正美味。而這正正是廚師的專業。」
+
+「提早開封的豆子味道是稍為遜色，但並不代表它是毫無價值的。至少，剛才的淺嚐，讓我首次接觸了咖啡的味道，如今又知道它的風味還能夠再上一層樓，實在令人期待。」
+
+「如果是妳，應該可以沖泡出一杯，能令所有人都能接受、發自內心感到喜愛的咖啡吧？」語畢，又輕輕撫摸少女的髮絲。</span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Sep-21 03:00 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-21 10:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="888790832201748520" id="message-888790832201748520" title="Message sent: 18-Sep-21 10:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">因為你的插話，拽著有些泛紅的目光看向妳。她咬了咬嘴唇，原本好像要說些什麼氣話，但卻還是忍了下來，靜靜地聽你說。大概是意識到自己的錯誤了，她逐漸低下了頭。
+直到你說完話，許久才張口說道：「我只是……只是那個豆子只剩下最後那一點點了，原本是要送給人的。所以我才……才會那麼生氣的。對不起。」
+因為站得很近，又摸著她的頭髮。你可以聞到，她的身上殘留著些許的氣味，是長年接觸各種香料沾染在身上的味道。
+另外，雖然看不見血水，手上淡淡地血腥味藏不住，或許她真是擦了手就急急忙忙地跑下來了。
+
+在向你道完欠後，她走向一旁的婦人，輕輕抱上去，說：「古蕾莎，剛剛對妳發怒了。我沒有說那罐豆子不能動……是我的不對，對不起。」婦人也只是輕輕撫摸了她的頭，沒有多說些什麼。
+
+過了片刻，夏洛特才鬆開手，在婦人耳邊說了些話之後，準備離開。
+離開之際，她卻又回過頭來，「你剛剛說謊對不對，明明就不喜歡它的味道……但是我會讓你喜歡上的。」這才真的離開。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 03:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="889053400820506644" id="message-889053400820506644" title="Message sent: 19-Sep-21 03:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅嘴角勾起一抹微笑，並沒有為自己剛才的說話加以解釋，而選擇安靜地目送女孩離去。
+「她遠比同齡的孩子聰慧，也了解自己渴望追求的事物，將來必定是一位出色的人物。」待對方走遠之後，由衷的讚賞道。</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Sep-21 01:58 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 04:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="889058862039195679" id="message-889058862039195679" title="Message sent: 19-Sep-21 04:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">婦人用一隻手托著臉頰右側說道：「第一次看過小姐這般模樣，也許小姐和您相當合適呢？」她欣慰地說，也許還帶著一點點不捨得。「翡翠小姐，您也舟車勞頓許久了，我這就去整理間客房吧？一會兒再回來。」婦人說著，把周圍的雜物重新放回規則，對你欠身後離去。
+整個房間裏只剩下你一人，有些空蕩蕩的。</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Sep-21 04:02 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 04:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="889063569537245224" id="message-889063569537245224" title="Message sent: 19-Sep-21 04:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯。」精靈輕聲答應後，就回到剛才的座位就座。也許是真的疲累了，她暫時無意欣賞大廳內的布置，而是闔上了眼睛、閉目養神，靜待婦人的歸來。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 04:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="889068935260041237" id="message-889068935260041237" title="Message sent: 19-Sep-21 04:42 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">從樓上傳來些許的響聲，似乎在搬動什麼重東西。除此之外，還有細小的聲音從他處傳來，規律而平緩的剁剁聲。大概是誰在做菜，菜刀落在砧板上的聲響。
+不知道過去多久時間，當你睜開眼時，窗外是一片晴明，太陽高掛天穹，強光讓地上的影子變得模糊難辨。不知道在何時，婦人已經回來了。
+「房間已經準備好了，這是鑰匙。大小姐今天下廚，再一下便好了，您要不要稍微梳洗一下？」接著把鑰匙遞給你。在你手中的鑰匙並不是片狀的結構，而是石膏模具鑄造成的特殊形狀，若是模具和備份已經銷毀，全世界就只有這把鑰匙對應著那個鎖孔了。鑰匙後頭有個小小穿孔，有一個吊牌寫著202</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">19-Sep-21 10:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="889152382188019772" id="message-889152382188019772" title="Message sent: 19-Sep-21 10:14 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「謝謝。」精靈再次背負起沉重的背包，簡單一聲道謝，就從婦人手上接過了鑰匙。鑰匙那獨特外型引起了她的興趣，但現在倒不急著於研究，反是想先找到房間的位置。
+
+到達後，推開房門內進，將帽子掛在衣架上、背包放在一角，開始在房內踱步，觀察環境──
+
+柔軟的睡床、擺放整齊的傢俱，就連沐浴用品都一應俱全。
+
+一路上風塵僕僕，幾乎沒有好好換洗過衣物，難得回歸文明之地，這時自然要好好享受舒適的浸泡沐浴了。
+
+梅將房門關好，但並沒有特意上鎖。她其後來到盛滿合適溫度暖水的浴缸旁，解開髮辮，將身上的衣物依次脫下，並將其整齊放置在一旁的椅上。她從腳尖開始，慢慢地將身體泡進水裡，直至全身都感受到暖意，這才閉上雙眼，放鬆身心享受這難得的時光。
+
+......
+...
+.
+
+當洗去了身心的疲累後，就以浴巾擦乾身體、吸去頭髮上的多餘水份。其時正值中午，但考慮到暫時不會出外，於是就從背包中取出了一件素色的連身長裙替換上。
+
+等待髮絲變乾的期間，她將頭髮梳理整齊，任由及腰的長髮披在背後。其後戴上眼鏡，離開房間返回大廳之中。</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Sep-21 03:56 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-21 12:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="889184524016177184" id="message-889184524016177184" title="Message sent: 20-Sep-21 12:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">還沒進門，就聞到異域香料的味道撲鼻而來。辛辣而刺激的氣味，對你來說可能不是那麼熟悉，你無法想像那會是一種怎樣的料理。
+直到推門進去，擺在桌面上的菜餚徹底顛覆了你對食物的想像。盤子上，一邊是在這片土地上不常見的白米飯，另一邊則淋上一種介於咖啡色與土黃色之間的醬汁，看得見切得大塊的蘿蔔、馬鈴薯、肉塊混在其中。
+
+「為了調香料，我可是花了不少時間……你嚐嚐看。」看著現在的夏洛特，似乎沒有受到剛剛的事情影響。可能也有，至少感受不太出來是怎樣的變化。</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Sep-21 12:29 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-21 01:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="889205621138812959" id="message-889205621138812959" title="Message sent: 20-Sep-21 01:45 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅了解女孩的個性，知道她並不拘泥於禮節，也就沒有禮儀上的顧慮，直接來到餐桌前拿取餐具，在啡黃色醬汁與白米飯交匯處舀起了一小勺，送進嘴裡仔細品嚐。
+
+入口的瞬間，那辛辣的口感起初令人感覺難受，但一旦適應以後，反而會和香料那獨特的香味相輔相成，進一步勾起進食的意慾。
+
+精靈白皙的臉上泛起紅暈，額頭上亦冒出了點點的汗水，雖是搖搖頭，卻又展露著欣喜的微笑：「文字和言語都難以描述這種美味。」
+
+「能記錄食物美味的文字，也許就只有食譜了。」說後，又舀了一勺，以實際行動表達她對這盤餐點的喜愛。</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 03:27 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-21 04:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="889245071206154290" id="message-889245071206154290" title="Message sent: 20-Sep-21 04:22 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「既然沒辦法用文字記錄，就不必紀錄了。」夏洛特對你的說法似乎有些不滿，「食材是自然賜予我們的恩典，唯一能真正將味道記錄下來的只有我們的鼻子還有舌頭。就算是食譜，也不能。」夏洛特搖搖頭，然後站起身來，倒了一杯開水。
+
+「如果你真的喜歡我的料理的話，是不需要文字的。廚師看得出來……客人們的表情。然後……謝謝妳的喜愛。」小聲說完最後一句話後，急匆匆地把水杯推到你的面前，又急匆匆地回到自己的位子上。</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Sep-21 04:26 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-21 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="889430017505890375" id="message-889430017505890375" title="Message sent: 20-Sep-21 04:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈接過了水杯，小口啜飲，直至杯中只剩半滿，才再次放下。受辣味刺激的生理影響仍未完全消退，但面色已有好轉。
+
+「妳在廚房忙碌已久，想必還沒有機會進食午餐吧？」她將盤子挪移，在女孩附近找了個位置就座，凝視著女孩的雙眼，「只有我一人獨享美食，未免太過可惜了。」言下之意，似乎是想邀請夏洛特共進午餐。</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Sep-21 05:52 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-21 07:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="889480763484045332" id="message-889480763484045332" title="Message sent: 20-Sep-21 07:58 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「我……也可以。」你感覺出來，夏洛特原本下意識要拒絕的。不過又趕緊改口。
+她拿了個比較小的盤子添飯少許，掀開推車上鐵鍋的蓋子，把醬汁淋在一旁。端著盤子，坐到你的對面，說起來……幫傭那位婦人並不在這裡。
+「廚師本來不應該和客人在一起吃飯的……」夏洛特只說了一句，就開始埋頭扒飯。</span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Sep-21 08:00 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-21 09:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="889499469710762024" id="message-889499469710762024" title="Message sent: 20-Sep-21 09:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">（那又是什麼原因讓妳願意打破這規則呢？）
+梅本想向女孩提問，但看見女孩像是餓了很久的模樣，聰明如她很快就猜到了答案，又將答案默默藏於心裡，並不打算說破。
+
+「如果在場的不是『廚師和客人』，而是『主人與賓客』，又或者是『朋友與朋友』？」她淺淺一笑，順著女孩的話題反問道。</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 03:28 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">20-Sep-21 09:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="889508034760540164" id="message-889508034760540164" title="Message sent: 20-Sep-21 09:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「可以。」夏洛特點點頭。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">21-Sep-21 11:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="889889338178035763" id="message-889889338178035763" title="Message sent: 21-Sep-21 11:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「古蕾莎女士不和我們一起嗎？」梅緩慢地享用餐點，以減輕辣味帶來的負擔。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">22-Sep-21 12:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="889912169565671516" id="message-889912169565671516" title="Message sent: 22-Sep-21 12:33 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「她……你剛剛在房間的時候，她說要回家一趟。她的外孫女最近剛出生，古蕾莎也很忙的樣子，但是晚上前會回來……可能？」夏洛特說著，語氣似乎並不是那麼確定，接著又挖了一匙飯進去嘴巴。
+
+「太辣了嗎？」夏洛特問，「因為家裡已經吃習慣了……沒想過，下次我盡量做得你也習慣的東西吧……你有什麼不吃的嗎。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Sep-21 12:38 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">22-Sep-21 01:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="889922753271070782" id="message-889922753271070782" title="Message sent: 22-Sep-21 01:15 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是嗎。」梅一小口一小地將杯中剩下的水喝完，放下空杯。
+
+「嗯，以往沒有嚐試過帶有辣味的食物。」接下來的問題，倒是讓她沉入了沉思，良久之後才回應：「沒有特別喜歡的食物，也沒有感覺厭惡的。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Sep-21 01:31 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">22-Sep-21 03:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="889955769120850071" id="message-889955769120850071" title="Message sent: 22-Sep-21 03:26 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是……這樣嗎？」夏洛特拿出一本筆記和一隻鋼筆，在上頭寫了些東西後，像是在思考什麼，整個人停頓下來。
+
+若是注意到她的餐盤，會發現它幾乎空了，還剩下一兩口以及黏在旁邊的飯粒。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 04:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="890513728850759680" id="message-890513728850759680" title="Message sent: 23-Sep-21 04:23 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅安向來不會打擾正專注於工作的人，她在完成午餐後，也只是拿出手帕拭乾淨嘴巴，並繼續待在座上，默默地注視著女孩。</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 03:29 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 08:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="890578396374003742" id="message-890578396374003742" title="Message sent: 23-Sep-21 08:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">維持著一個動作好長一段時間，直到外頭傳來一聲犬吠，她才回過神來。把筆記本和鋼筆收起來，繼續用餐。
+「怎麼了嗎？」這時，察覺到你的視線，順手拿起旁邊的白絲巾擦拭，但是臉上似乎沒有沾上醬汁。</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Sep-21 08:53 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 08:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="890580790969262110" id="message-890580790969262110" title="Message sent: 23-Sep-21 08:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈微笑，用手指在自己的臉上輕輕點了點，位置正好對應女孩臉上的污跡。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 09:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="890583714269130793" id="message-890583714269130793" title="Message sent: 23-Sep-21 09:01 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">把絲巾往你指的地方挪動，污漬很快就被擦拭掉了。
+
+「啊……謝謝。」夏洛特道謝，停頓了一下，說：「老爹……父親每次都說我想東西就不會注意旁邊，應該說除了料理外，我沒什麼東西是做得好的，以前在一個宴會給他出了糗後，他就不帶我去了……不，有可能是我讓父親感覺我不想要再去接觸那種場合了。他似乎不太喜歡我這樣呢？不過他也沒有因為這件事責備我就是了……我也不知道我為什麼要說這些。總之，謝謝你。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Sep-21 09:02 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 10:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="890598429091328081" id="message-890598429091328081" title="Message sent: 23-Sep-21 10:00 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「即使妳是完美的，也同樣無法討好世間上所有人，因此不必在意那些只會在妳生命當中出現一兩次的過客的看法。」精靈來到女孩身邊，伸手撫摸她的頭髮。她感覺眼前這位女孩的身上有一些特質和自己很近似，又或者說....女孩和年輕時候的自己很相似。
+
+「要是妳能夠活到和我一樣的歲數，也許亦會發現周圍有不少人不喜歡自己。但這沒有關係，因為妳亦同樣可以討厭他們，這是妳的權利。」
+
+「只須記得，一本書（一個人）的價值並不是由它的封面來決定，唯有內容才能體現它的價值。」語畢，又朝著女孩淺淺的一笑。</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Sep-21 10:01 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 10:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="890600395578159145" id="message-890600395578159145" title="Message sent: 23-Sep-21 10:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯。」夏洛特點點頭，她可以理解眼前這位年長不知道多少的精靈女子在說些什麼？
+應該說，這些道理不像知識、學問，其實人人都懂，但是如何去實踐，如何讓它們成為自己的一部分，卻又是另外一回事。
+夏洛特沒有糾結很久，她清楚這也不是短短一下子能想明白的。
+
+「那樣的份量還足夠嗎？」夏洛特問，「用完餐，把盤子放著就可以了……我來收拾就行了。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Sep-21 10:11 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 10:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="890602831172755507" id="message-890602831172755507" title="Message sent: 23-Sep-21 10:17 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「足夠了。」她點點頭，「不介意的話，我也來幫忙？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">23-Sep-21 10:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="890604955994587206" id="message-890604955994587206" title="Message sent: 23-Sep-21 10:26 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「……恩。」夏洛特神情糾結了一下點頭。
+接著又過了很久才說：「這些餐具，是母親的蒐藏。雖然說是蒐藏，但是她又說：『東西就是要拿來用的』，所以我們一直都是用這些東西用餐的。不過，我很怕其他人摔了，以前不怎麼給人幫忙的，但是翡翠小姐，感覺可以……這麼說有點奇怪吧？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="23-Sep-21 10:31 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 12:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="890643410061508679" id="message-890643410061508679" title="Message sent: 24-Sep-21 12:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「夫人和我的看法一致。」梅笑了笑說，「物品只有按照本來設計的用途來使用才會有意義。」
+
+「謝謝妳的信任。」說後，本想欠身親吻女孩的頭髮，但考慮到不久前才用餐完畢，於是改為給予她溫柔的一個擁抱。
+
+「我平常也甚少與別人談論太多......妳是例外。」她輕聲訴說，「完成清潔的工作後，妳也先去休息吧。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 03:23 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 01:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="890652805692522496" id="message-890652805692522496" title="Message sent: 24-Sep-21 01:36 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">這個擁抱來的似乎有些突然，夏洛特拿著磁盤子的手稍微抖了一下，所幸沒有掉下去。
+「翡翠……翡翠小姐？」剛剛就算是那盤辛辣菜餚也沒能讓她有任何變化的臉龐，此刻卻通紅得像顆櫻桃。
+不過，她倒沒有推開眼前這位高自己許多的精靈，只是點頭應了一聲，轉向水槽繼續清洗碗盤。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 02:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="890661725089714217" id="message-890661725089714217" title="Message sent: 24-Sep-21 02:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈輕擁不久就放開了手，來到水槽側旁協助女孩清洗餐具。
+
+她先以水沖洗、再用布拭抹，看著被水洗淨後的瓷碟映照出自己的面貌，不禁憶想起以往在家的日子。
+
+一直以來過著漂泊流浪的生活，用餐時段不是前往餐館就是身在野外，像現今這樣悠閒度日、協助處理家務事是多久之前的事呢？
+雖然有與家人保持書信往來，但工作從未間斷過，因此久久未能前往探望。若細想，其實已經將近一百年沒有回過老家了......</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 02:16 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 02:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="890665404404490260" id="message-890665404404490260" title="Message sent: 24-Sep-21 02:26 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">因為只有兩人份的餐具，東西很快就清洗完了。接過你手中擦乾的磁盤後疊起來，一片一片小心地放進旁邊的壁櫥。用插銷扣住中間相連的圓環，使得裡頭的易碎的瓷器不會因為震動掉出來。
+
+「剛剛，謝謝你。」夏洛特說，「我先回房間了。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 08:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="890932324160634950" id="message-890932324160634950" title="Message sent: 24-Sep-21 08:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">聽見女孩的聲音，精靈才從記憶中抽離、回歸到現實，目送對方離去。
+
+這時大廳只剩下梅獨自一人。在滿足了口復之慾後，她並不急著於回到房間休息，於是在廳中踱步行走，欣賞古樸的傢俱與擺設。
+
+她特別注意一些微小的生活痕跡，並開始想象從大宅建成之初，直至現今，生活在大宅內每一代人的故事。這種既遠又近，遊離在現在與過去之間的獨特氛圍，正是她喜愛研究歷史的原因。</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 08:08 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 08:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="890935517036834836" id="message-890935517036834836" title="Message sent: 24-Sep-21 08:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">過去許久，天色已經昏暗了。就算時間已經來到仲春了，日照仍然有些短暫，大約是六七點左右，你聽見了門打開的聲音。
+
+「真是不好意思，我的小外孫出生了，女兒那兒忙得有些緩不過來，所以我才回去幫忙的。對了！我在半路是上買了些東西，您去整理一下，我去和大小姐說一聲。」她提著一隻燒雞，用細繩綑綁起來。</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 08:23 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 08:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="890941890172694589" id="message-890941890172694589" title="Message sent: 24-Sep-21 08:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈看著婦人手上的燒雞，又回望對方，頓時感到有些困惑。她倒不是不知道燒雞為何物，而是不曉得婦人說的『整理』是什麼意思。
+
+是要自己一個人把燒雞吃完嗎？還是代替她將雞肉分拆，然後裝到盤上？換著是平常，她才不會搭理這種沒頭沒腦的要求，只會回以對方一個白眼。
+
+幸運地，精靈今天的心情很好，至少是足以讓她從婦人手上接過細繩，代為提著一段時間的程度──
+
+「嗯。」她頷首答應了一聲，就伸手接過。</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 08:45 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 09:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="890946325837905960" id="message-890946325837905960" title="Message sent: 24-Sep-21 09:02 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「啊……東西我來處理就行了。您稍微準備一下，我去通知大小姐完，就過來處理。您是客人，坐著就可以了。」古蕾莎笑了笑，拿了個大盤子把燒雞擺在上頭，把繩子剪斷後沒有多做處裡，便上樓叫喚夏洛特。
+
+沒有過去多久，古蕾莎下來了，夏洛特卻沒有跟著。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="890949736851468288" id="message-890949736851468288" title="Message sent: 24-Sep-21 09:16 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈於是在餐桌附近找了一個位置就座。她靜候片刻，直至聽見腳步聲時才往樓梯的位置一望，但只看見婦人獨自下來，女孩卻沒有跟隨，覺得有些奇怪，於是詢問道：「夏洛特小姐呢？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 09:16 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 09:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="890952493125734400" id="message-890952493125734400" title="Message sent: 24-Sep-21 09:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「門鎖著，沒有回應。大概是研究什麼太過認真了，沒注意到我敲門。」古蕾莎說，「翡翠小姐不必在意，若是為了等她，怠慢了客人大小姐才會生氣的。」
+熟練地拿著餐刀，迅速將眼前的燒雞支解，用叉子放到你的餐盤上，並在一旁擺上一些烤蔬菜和一小碟子，用芝士果製成的醬汁。
+烤至金黃的雞皮，帶點酥脆，將汁水和特製的醬汁鎖在裏頭。
+「這間燒雞，也開了好幾十年了，我還年輕時就在了，只要稍微熱一下，味道也不會差很多。只不過，開到現在，老闆他也差不多要退休了。還記得大小姐曾向他討要食譜，只不過老闆一直不願意。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 09:55 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 09:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="890958263418519592" id="message-890958263418519592" title="Message sent: 24-Sep-21 09:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「會有人繼承老闆的手藝嗎？」梅觀看古蕾莎快速地將雞肉切割，並作了漂亮的擺盤，那純熟的手法亦稱得上是賞心悅目。
+
+當食物被端到自己面前時，她卻搖頭微笑，「謝謝，但是我打算再等候片刻。」
+「或者，可以由來我去知會她一聲。女士妳忙碌了一整天，若果感覺飢餓，也可以先行進食，不必顧慮我。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 06:22 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 10:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="890962626971058237" id="message-890962626971058237" title="Message sent: 24-Sep-21 10:07 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「可能不會吧？那老闆和我們家夫人的仇可結大了。據說夫人把他的另一道成名菜複製出來了，分享出去。不知道是生氣，還是怕東西又被抄走，好長一段時間不願意賣燒雞給我們。」古蕾莎懷念般的說。
+「夫人和大小姐有點像……在待人方面確實都少了點心思。啊……一下子就說了這麼多真是不好意思。大小姐的房間和你隔了兩間，若是您去大小姐也許會願意出來呢。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 10:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="890967009586716763" id="message-890967009586716763" title="Message sent: 24-Sep-21 10:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「那真是可惜了。」「嗯。」聽聞了有趣的故事後，她輕聲答應，就走上二樓，來到一道鎖上的房門前。
+
+「是我。」梅緩慢地在木門上敲了幾聲，「不來吃晚餐嗎？飲食不定時可是會影響健康的，特別是發育時期的孩子。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="24-Sep-21 10:25 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 10:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="890973305304150077" id="message-890973305304150077" title="Message sent: 24-Sep-21 10:49 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「古蕾莎嗎？再一下子，這個部分……一下子就看得懂了。」隔著門扉，傳來夏洛特軟軟糊糊的聲音。
+只不過她似乎沒有猜到站在外頭的並不是自己想像的那個人。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">24-Sep-21 11:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="890989635591893033" id="message-890989635591893033" title="Message sent: 24-Sep-21 11:54 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈知道，要是現在放任這孩子不管，女孩大概就會錯過今晚的晚餐了。因此，即使她同樣不喜歡打擾別人，也認為自己的舉動不勝其煩，但亦再度敲響了木門：「門後的並不是古蕾莎女士，而是梅。」
+
+「妳會介意現在打開門嗎？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 12:20 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 12:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="890994370118054010" id="message-890994370118054010" title="Message sent: 25-Sep-21 12:13 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「咦？不是古蕾莎……梅？是誰？」隱約聽得見她小聲地喃喃，不過很快就聽見了她小小的驚叫。
+你聽見慌亂的腳步和開鎖的聲音，接著出現在夏洛特一頭散髮的模樣出現在你的面前。
+「翡翠小姐，怎麼是你？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 12:17 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 12:33 AM</span>
+
+            <div class="chatlog__message " data-message-id="890999426699628645" id="message-890999426699628645" title="Message sent: 25-Sep-21 12:33 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「抱歉打擾了。」梅朝著夏洛特點了點頭，「古蕾莎女士從有名的燒雞店買來了晚餐，我本想等待妳一同享用，但見妳遲遲沒有離開房間，不免令人憂心，於是就過來看看了。」
+
+精靈看到女孩身後不遠處擺放著攤開了的書本，於是向她詢問道：「是閱讀時遇上困難嗎？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 06:18 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 12:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="891001900378521620" id="message-891001900378521620" title="Message sent: 25-Sep-21 12:43 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「啊……怎麼說……雖然讀得懂，但是它好像不是我認識的語言。」夏洛特思考了一下，「翡翠小姐是位學者對吧？如果可以，你能幫我嗎？解讀那一本筆記……」</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 01:20 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="891011364682891324" id="message-891011364682891324" title="Message sent: 25-Sep-21 01:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「如果妳現在向我求助，我的答案將會是拒絕。」
+
+在看似嚴厲的回絕後，她又展現出溫和的笑容，「但是，如果妳在吃完晚餐之後再一次向我詢問，我將會有不同的答覆。」語畢，又向女孩伸手作出邀請，如果對方願意，就會一起牽著手回到廳室，共進晚餐。</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 01:38 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 01:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="891014826669772861" id="message-891014826669772861" title="Message sent: 25-Sep-21 01:34 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">夏洛特牽起對方的手，下到飯廳。古蕾莎微微一笑，倒也沒有說些什麼？反倒是夏洛特看見古蕾莎如此反應，耳根頓時有些紅了，默默把牽著的手收回去。
+
+剛剛回到餐廳，便聞到一股濃郁的奶香及芝士果融化的香氣，是從一旁烤箱裡傳出來的，不知道是在做什麼。</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 01:37 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 06:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="891266917237653544" id="message-891266917237653544" title="Message sent: 25-Sep-21 06:16 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈留意到女孩那有趣的舉動，嘴角不自覺地勾起一抹微笑。
+
+「好香的味道。」回歸座位後，她看向氣味的來源，「是餐後的甜點嗎？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 06:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="891270829067882507" id="message-891270829067882507" title="Message sent: 25-Sep-21 06:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這個才是主食呢～東西馬上來。」古蕾莎笑著說，手裡戴著厚重的手套，把鐵盤子從烤箱裡頭拿出來，上頭擺著三個用鋁箔包裹的東西，陣陣香氣撲鼻而來。
+
+把東西移到餐盤上，小心撥開包覆的鋁箔。蒸騰的馬鈴薯還冒著蒸氣，融化的奶油從邊緣流下來，芝士表面被烤得褐黃，一部分黏在鋁箔上，牽出細長的絲。附著餐刀與餐叉放到你的面前。
+
+「來，請慢用。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 06:32 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">25-Sep-21 08:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="891301687900393543" id="message-891301687900393543" title="Message sent: 25-Sep-21 08:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「謝謝。」精靈向婦人微笑點頭，拿起叉子，先將較早之前為自己切好的雞肉送進嘴裡。
+
+雞肉的溫度已經變冷，原先酥脆的雞皮亦稍微軟化，但肉質卻依然細嫩，要是適時食用想必風味會更佳。
+
+接著，她將盛有馬鈴薯的盤子拉近自己一些，又往它輕輕吹氣，吹散了飄升的蒸氣，然後以餐刀切下馬鈴薯的一角，沾了點奶油與起司，並轉動叉子，將拉出的細絲捲好後，一次品嚐三種味道。
+
+濃郁的香味互相交融，熱騰騰的溫度與馬鈴薯特有的飽足感更人倍感滿足。
+
+精靈並沒有對食物的味道作出評價，但見她一口接一口，盤中的份量亦逐漸減少。</span>
+
+                                <span class="chatlog__edited-timestamp" title="25-Sep-21 09:05 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-21 02:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="891390241259286538" id="message-891390241259286538" title="Message sent: 26-Sep-21 02:26 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">在沒有交談的安靜餐桌上，翡翠的用餐速度或許稱得上快速，但對比夏洛特，卻是小巫見大巫。
+明明她的動作也不至於太過野蠻，前貴族的教養一直流淌在他們血液中，甚至算得上優雅，但是餐盤中的食物卻如同殘風捲食一樣，迅速消失。
+沒一下子盤子已經空了，古蕾莎順手端走餐盤，在她的右手邊擺上擦拭嘴角用的紙巾。
+
+「如果有一杯適配的紅酒就好了……星空午夜？不對，格拉多玫瑰也許會更好一點。」擦拭嘴角的時候，聽得見她小聲喃喃，不過瞧她渙散的目光，靈魂估計又飄到什麼地方了？</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">26-Sep-21 05:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="891622390537256970" id="message-891622390537256970" title="Message sent: 26-Sep-21 05:49 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅舔了舔唇邊沾上的奶油，又喝一口清水，這道豐盛的晚餐使她感到心滿意足。
+
+她安靜地注視著發呆的女孩，稍後才帶著笑意，小聲叮囑說道：「要是現在喝醉，閱讀時可就看不清文字了。」說時以手帕輕輕擦拭嘴巴。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-21 06:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="891988792192426004" id="message-891988792192426004" title="Message sent: 27-Sep-21 06:05 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「不……不會，才不會。」聽到翡翠的調侃（？）夏洛特急急忙忙說道，臉色有些羞紅，沒想到自己想得事情竟隨口說出來了。
+「頂多，小酌而已才不會喝醉……」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">27-Sep-21 11:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="892064762547032075" id="message-892064762547032075" title="Message sent: 27-Sep-21 11:06 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯～適度的放鬆也是有必要的，進食亦要定時，頭腦才會處於清醒的狀態。」精靈笑著點了點頭，出乎意料地同意了少女的說法，不過這其實是為了她身體著想的緣故。</span>
+
+                                <span class="chatlog__edited-timestamp" title="27-Sep-21 11:07 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 12:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="892078352574316654" id="message-892078352574316654" title="Message sent: 28-Sep-21 12:00 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「恩，對呀！」聽見眼前精靈認同自己的話，夏洛特的聲音一下子它大了幾分，有感覺十分失禮，而縮了起來。
+
+「對了？格拉多玫瑰的產地是愛梅萊吧？翡翠小姐的筆記是在那裏找到的……所以您也喝過嗎？我們已經好久沒有進他們的酒項了。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 12:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="892082675949654026" id="message-892082675949654026" title="Message sent: 28-Sep-21 12:18 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅並沒有在當地的活動特別記在心上，此時要回憶起所有細節需要一點點時間。
+
+她默想片刻，說道：「雖有品嚐過當地的紅酒，但已經有些忘懷箇中的滋味了。」雖然精靈也會欣賞美味的食物，但她畢竟不是一位美食家，並沒有對食物刻意的追求，自然而然缺乏深刻的印象。</span>
+
+                                <span class="chatlog__edited-timestamp" title="28-Sep-21 12:19 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 01:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="892097910433529907" id="message-892097910433529907" title="Message sent: 28-Sep-21 01:18 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這樣嗎？感覺有些可惜……」夏洛特嘆息，「它和鑄劍塔的栗子酒和森而薩的憐人泉並稱……但是我不這想就是。總覺得……每種食物都有合適的配酒才是。」
+整句話下來，似乎抓不太到夏洛特語句的重點，或許只是隨意攀談。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 05:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="892336013186330684" id="message-892336013186330684" title="Message sent: 28-Sep-21 05:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「有些食物只是單獨享用就已經足夠美味了，配酒只是錦上添花。」
+
+她從座上站起來後，向兩位點了點頭，「感謝兩位招待這豐盛的一餐。」又向夏洛特笑問道：「吃飽後該來點腦力活動了，如何？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 05:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="892345677600923678" id="message-892345677600923678" title="Message sent: 28-Sep-21 05:43 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「好……」夏洛特點頭，「我吃飽了。」
+站起身走到你的前頭。清理桌上空盤的古蕾莎，對著剛剛離去的你們說：「我一會兒送些提神的花草茶上去。」
+
+走在上樓的階梯，你忽然聽見夏洛特說了聲：「才不是錦上添花呢……」
+若是抬頭看去，會發現她微微鼓起雙頰，像是小倉鼠一樣有些可愛。「配酒和食物就像綠葉和鮮花，要相互烘托，才能展現出其中的美味的。」說著就已經來到了房間門口，推門進去。</span>
+
+                                <span class="chatlog__edited-timestamp" title="28-Sep-21 05:43 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 08:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="892385347634339840" id="message-892385347634339840" title="Message sent: 28-Sep-21 08:20 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「有勞妳了。」梅轉頭向婦人道謝了一聲，又溫柔地輕輕撫摸女孩的頭髮，一路跟隨她來到樓上的房間。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 11:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="892432895275315281" id="message-892432895275315281" title="Message sent: 28-Sep-21 11:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">推門進去，第一次進到女孩的房間，裡頭相當整潔，不知道究竟是她自己整理的，或是古蕾莎整理的。剛剛來的時候就沒有開燈了，只有書桌旁一盞油燈。或許對擁有精類血統的人來說，一點點的光照就已經足夠了，但也可能只是少女的個人習慣。
+
+因為當地盛產紅杉，床板、壁櫥、書桌、書櫃連同地板在內全部都是杉木造的。另外，在房間的後頭，書桌的右側還有扇門，上了大鎖不知道裡頭是什麼。
+看向桌面，擺著一本厚重的文字辭典，那本內文不明的筆記，還有一疊白紙。
+「翡翠小姐，請坐。」從旁邊推來了沙發椅，因為身高差距的關係，坐下去高度正好。</span>
+
+                                <span class="chatlog__edited-timestamp" title="28-Sep-21 11:33 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 11:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="892435322833620993" id="message-892435322833620993" title="Message sent: 28-Sep-21 11:39 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">整棟大宅之內，女孩的閨房是最不易被人為意的地方，但夏洛特亦將其打理得井然有序，足見她處事認真。
+
+「謝謝。」梅舒適地坐在的沙發椅上，略為看了桌上的文件一眼，又將目光轉回女孩身上，等待著她的提問。</span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Sep-21 02:57 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">28-Sep-21 11:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="892437919963418644" id="message-892437919963418644" title="Message sent: 28-Sep-21 11:49 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這很奇怪……明明讀得懂，但是字典上卻找不到這個詞。發音也十分怪異……」夏洛特跟著坐了下來，手指著其中一段字詞，艱難地發音。雖然發音有些不太正確，卻可以確定……這並不是大陸上存在的任何語言，唯一可能有這種語言使用的地方，只有遙遠的南方那座屬於炎魔的島嶼。
+「煉獄語」──來自異界的魔鬼在遙遠之前，流落在這方世界的失落語言。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 12:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="892442650962169936" id="message-892442650962169936" title="Message sent: 29-Sep-21 12:08 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「喔。」梅推了推眼鏡，聚精會神地細看，卻發覺自己無法讀懂。憑藉著以往閱覽各類古籍的經驗，她只能作出推斷：「這似乎是某種古語，妳能看得懂嗎？」
+
+「<img loading="lazy" class="emoji " alt="DINO_7" title="DINO_7" src="https://cdn.discordapp.com/emojis/887778743710527528.png"> ......」精靈跟著女孩的發音唸了幾遍，再加以思考，似乎找到其中的線索。
+
+「這種發音類似於煉獄語的<img loading="lazy" class="emoji " alt="DINO_8" title="DINO_8" src="https://cdn.discordapp.com/emojis/887778764593967134.png"> ，如果按照讀音來猜測字義 ...最接近的意思會是精靈語的<img loading="lazy" class="emoji " alt="DINO_11" title="DINO_11" src="https://cdn.discordapp.com/emojis/887782131902853170.png"> 。不過這並不是尋常可見的語言，一般人亦不會有機會接觸到。」說後，她觀察女孩的反應，待對方理解吸收後，才繼續耐心教導，「以煉獄語原文書寫出來會是這樣......看著我的手指，這字體是從這處開始寫起──」</span>
+
+                                <span class="chatlog__edited-timestamp" title="29-Sep-21 01:42 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="DINO_1">
+                                <img class="emoji emoji--small" alt="DINO_1" src="https://cdn.discordapp.com/emojis/887777148029526056.png" loading="lazy">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 01:04 AM</span>
+
+            <div class="chatlog__message " data-message-id="892456785078812672" id="message-892456785078812672" title="Message sent: 29-Sep-21 01:04 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「索爾納古語，只要是英希思貴族都要習這一門課。」夏洛特停頓了一下，「雖然現在沒有貴族了，但……現在的議員和貴族基本上都是同一群人，沒什麼差異。」
+
+「當你那時候說高祖父不是個合格寫手的時候，我還稍微愣了一下。明明他的草體是我見過最漂亮的，才想到翡翠小姐毀不會是不認得這種文字。雖然標準字體長得和通用語有點像，但是草體的結構就完全不一樣了……對不起，那時候沒跟你說。這樣是不是有些目中無人？」
+
+看著你寫出來的另外一種異形字體，看得出夏洛特認真學習的眼神之中，透著一點點點的不情願，畢竟這和她的專業實在差距太遠太遠了。</span>
+
+                                <span class="chatlog__edited-timestamp" title="29-Sep-21 01:05 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 01:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="892644047326433280" id="message-892644047326433280" title="Message sent: 29-Sep-21 01:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅以往曾經擔任過富人及貴族家庭的教師，遇見過不少學生。當中有聰慧的、有愚笨的、有喜愛學習的，亦有拒絕接受知識的。
+不論如何，她從來不會逼令學生服從，亦不會對他們的學習意欲加以鼓勵，只會盡薪金範圍內的份內事，絕不負擔起額外的責任。
+
+但是，眼前這位不情願學習的小女孩卻得到了她的偏愛──
+
+夏洛特的母親早逝，父親長期在外工作，長年只有她孤身一人深居於大宅之內。小小年紀的她卻沒有自我放棄，反而忍受住寂寞，全心全意投入到自己喜受的事物上，並小有所成。
+這種難能可貴的性格特質觸動了精靈冷漠的心靈，喚起她埋藏在心底裡的母性，並願意包容女孩的任性，甚至願意多花一些心思來鼓勵她，陪伴她。
+
+「妳並沒有過錯，是我太早下定論了。」梅先給予夏洛特一個鼓勵的微笑，再循循善誘，「只不過，妳的祖先選擇了這一種冷門語言，以轉折的方式來記錄食譜，當中必定有他的理由。難道妳真的不會想知道背後的故事嗎？」
+
+「要是現在放棄學習，也許就永遠失去了解他如何成為一位偉大廚師的機會了。」她又像是母親說故事哄小孩般，溫柔地勸說。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 01:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="892649502253654016" id="message-892649502253654016" title="Message sent: 29-Sep-21 01:50 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「我……我沒有要放棄。」夏洛特說，「就算再難我也會努力的……我已經尋找它好久好久了。說什麼也『不能』放棄……」
+她用紙筆記下了文字，並且低聲默念。失落罕見的文字，在她的口中念了好幾次，舌頭沒辦法卷過來，差點兒咬到舌頭，試了好幾次才勉強發對了音。
+「這樣子……這樣子對嗎？」因為第一次的成功，夏洛特顯得有些雀躍。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 07:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="892736195044446249" id="message-892736195044446249" title="Message sent: 29-Sep-21 07:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「非常好，正是這個字詞。」「學習語言時不羞於開口，相信妳會比我當初更快學會。」梅朝著夏洛特微笑點頭，手指移向另一段文字，詢問道：「小老師，能請妳為我讀出這段文字的發音嗎？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="29-Sep-21 07:35 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 07:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="892741976716369950" id="message-892741976716369950" title="Message sent: 29-Sep-21 07:57 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">照著翡翠的指示，朗誦那段文字，畢竟文字和話語分屬不同語言，夏洛特說得斷斷續續的。感覺她正使出全身的力氣去理解這個異邦的語言……
+
+另外，翡翠也有些許發現──數十種字母與多種聲調符號進行排列組合，創造出一種極為繁複的聲韻系統，幾乎能將大陸上所有語言涵蓋在其中……或許，索爾納古語也許是你所見過最複雜的語言之一。因此，對翡翠而言，若要學會這門語言同樣是不小的挑戰……。</span>
+
+                                <span class="chatlog__edited-timestamp" title="29-Sep-21 07:58 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 08:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="892755684154826773" id="message-892755684154826773" title="Message sent: 29-Sep-21 08:52 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅先跟隨著女孩輕聲再唸一遍，當理解發音的意思後，再以標準的發音讀出，加以解釋。與此同時，她以手代筆，對照著書上的字體在空氣中寫畫著，嘗試理解文字的筆劃順序並記憶下來。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 09:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="892760360648581120" id="message-892760360648581120" title="Message sent: 29-Sep-21 09:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">這是個浩大的工程，若想翻譯整本筆記。還在記憶新文字的夏洛特，被翡翠的動作稍微干擾了，她轉過頭困惑地看過來。
+又仔細觀察一下指尖滑過空中的軌跡，問道：「翡翠小姐也想學嗎？」接著在白紙上寫下和通用語相似卻又不同的字母，用紅色筆將其中幾個字圈起來。又下方用草書寫了一行
+「這些是它們的標準寫法和草寫對照……不知道能不能幫助到翡翠小姐您？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="29-Sep-21 09:11 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 09:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="892764922772094997" id="message-892764922772094997" title="Message sent: 29-Sep-21 09:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">梅從思緒中回神，推了推眼鏡，看向女孩註解的筆記，研讀片刻，臉上不禁流露出些許的激動以及喜悅的笑容。
+
+她從椅上站起來，忍不住要彎身親吻女孩的髮絲，笑說道：「謝謝！這筆記真的很有幫助。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 11:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="892790165712568320" id="message-892790165712568320" title="Message sent: 29-Sep-21 11:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「不，我才要謝謝……噫！」夏洛特小聲地驚叫，似乎被翡翠突然的行為嚇到了，整個人愣在當場，一小段時間後，才結結巴巴問：「這……這是翡翠小姐家……家鄉的招呼方式嗎……嗎？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">29-Sep-21 11:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="892797910838837299" id="message-892797910838837299" title="Message sent: 29-Sep-21 11:40 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「不完全是。」精靈只是不置可否的笑了笑，「讓我們繼續吧。如果你想稍作休息，或者再次複習也是可以。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">30-Sep-21 12:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="892803079794200626" id="message-892803079794200626" title="Message sent: 30-Sep-21 12:00 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「不……我們繼續吧？這才過去一下子。」夏洛特回答，就在這時房門被敲響了。
+古蕾莎端著茶壺與兩個茶杯上來，聞到清幽的花香與微甜的果香，感覺精神也一下子提了起來。
+「請慢用。」把托盤放在書桌的旁邊後，就自行退去。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">30-Sep-21 12:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="892813235114364988" id="message-892813235114364988" title="Message sent: 30-Sep-21 12:41 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈向送茶的婦人點頭示意，回歸座上。因有著閱讀時不會在書本旁邊吃喝的習慣，她暫由茶壺放在桌上，沒有取用的打算。
+
+「把所有單詞串聯起來後，第一段的內容就是<img loading="lazy" class="emoji " alt="DINO_2" title="DINO_2" src="https://cdn.discordapp.com/emojis/887777942195826738.png"> 的意思。」「至於第二段文字──」手指慢慢移向下一段落，等待著女孩的誦讀。</span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Sep-21 12:45 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="DINO_13">
+                                <img class="emoji emoji--small" alt="DINO_13" src="https://cdn.discordapp.com/emojis/887782131986755644.png" loading="lazy">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                            <div class="chatlog__reaction" title="DINO_2">
+                                <img class="emoji emoji--small" alt="DINO_2" src="https://cdn.discordapp.com/emojis/887777942195826738.png" loading="lazy">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">30-Sep-21 03:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="893038305954914347" id="message-893038305954914347" title="Message sent: 30-Sep-21 03:35 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">夏洛特附頌一次，這是一段讚美之詞，讚美哥布林烤肉是怎樣子美味，粗獷豪邁的料理手法，與它獨特的香料配合。
+下方則是一串的香料名，是向一位大哥布林祭司拜師學藝而來的。
+
+如同詩人般奔放的文采，倒不像是一本學者的筆記，而是詩人的詞曲。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">30-Sep-21 07:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="893090822692687892" id="message-893090822692687892" title="Message sent: 30-Sep-21 07:04 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯......」她細想了一會，決定不直譯意思，而是將文句中的美感盡量翻譯，「『<img loading="lazy" class="emoji " alt="DINO_15" title="DINO_15" src="https://cdn.discordapp.com/emojis/889076160896598057.png"> ，<img loading="lazy" class="emoji " alt="DINO_8" title="DINO_8" src="https://cdn.discordapp.com/emojis/887778764593967134.png"> ，<img loading="lazy" class="emoji " alt="DINO_10" title="DINO_10" src="https://cdn.discordapp.com/emojis/887781183306481734.png"> ！』，向一位大哥布林祭司學習廚藝，真是有趣的經歷。」</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="DINO_8">
+                                <img class="emoji emoji--small" alt="DINO_8" src="https://cdn.discordapp.com/emojis/887778764593967134.png" loading="lazy">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">30-Sep-21 09:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="893135058519601202" id="message-893135058519601202" title="Message sent: 30-Sep-21 09:59 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「咦？哥布林？」聽到了你的解釋，夏洛特愣了一下，不可置信地說。
+或許在她的印象中，哥布林是一群身處野蠻部落，弱小、狡黠且醜陋的種族……沒有想過他們竟也有讓高祖父讚嘆的廚藝文化。</span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Sep-21 10:01 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">30-Sep-21 10:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="893143746223407137" id="message-893143746223407137" title="Message sent: 30-Sep-21 10:34 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「妳的祖先也是熱愛學習之人。」即使不考慮文字因素，故事的內容亦足夠吸引人繼續閱讀。精靈默默將內容記於腦中，抵著書頁的指尖慢慢往下移動。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">01-Oct-21 05:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="893427295048564744" id="message-893427295048564744" title="Message sent: 01-Oct-21 05:21 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「可能……是吧？」夏洛特語氣有些不確定，可能還沒有從哥布林料理這件事情上緩過來。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">01-Oct-21 08:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="893481219713536000" id="message-893481219713536000" title="Message sent: 01-Oct-21 08:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">也許是覺得女孩的反應很有趣，精靈只是側著頭，面帶微笑，安靜地注視著她的雙眼。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 02:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="893741106179764285" id="message-893741106179764285" title="Message sent: 02-Oct-21 02:08 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">夜深人靜，不知道過去了多少時間，回神時外頭的天已經黑了。
+只有守夜人提著燈，經過大門前，點亮些許光線，這裡並非大城，家家人前不會擺放油燈照明……這裡的黑夜真正屬於黑夜。
+
+解讀的工作告了一段落，雖說如此也只是讓夏洛特稍稍熟悉了幾個煉獄語的字詞。
+「今天先到這裡嗎？」夏洛特的精神有些疲憊，若是其他人看著翡翠或許也好不上哪裡？舟車勞頓，好不容易停歇片刻，卻因為這本神秘筆記而無法好好休息。
+就算不用睡眠的精靈也有些疲倦了。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 08:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="893839264259928074" id="message-893839264259928074" title="Message sent: 02-Oct-21 08:38 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯，確實是到了該休息的時候了。」」梅合上書本，再為女孩和自己倒一杯變冷的花茶，舉杯慢慢啜飲，「謝謝妳讓我學會了這麼多，明天再繼續吧。」</span>
+
+                                <span class="chatlog__edited-timestamp" title="02-Oct-21 08:44 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 08:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="893840870414094377" id="message-893840870414094377" title="Message sent: 02-Oct-21 08:44 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「梅小姐，想要吃一點宵夜嗎？」這時候夏洛特突然問，不知道什麼時後稱呼的方式也從翡翠變成了梅。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="893850397398159370" id="message-893850397398159370" title="Message sent: 02-Oct-21 09:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是從食譜上得到靈感嗎？」她向來沒有進食宵夜的習慣，此時亦不覺飢餓，但還是接受了女孩的好意，微笑說道，「如果妳覺得太累就不需要了，要真的想煮我也可以幫忙。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 09:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="893851091672920064" id="message-893851091672920064" title="Message sent: 02-Oct-21 09:25 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">夏洛特搖搖頭，說：「單純想要做而已……因為，我有點餓了。」
+她站起身來，主動牽起翡翠的手，「走嗎？」</span>
+
+                                <span class="chatlog__edited-timestamp" title="02-Oct-21 09:33 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 09:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="893853836169576480" id="message-893853836169576480" title="Message sent: 02-Oct-21 09:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「走吧。」梅牽起女孩的手，帶著笑意朝她點了點頭。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 10:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="893862585378701332" id="message-893862585378701332" title="Message sent: 02-Oct-21 10:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">外頭一片黑暗，夏洛特提了油燈緩緩下樓。接著，把燈放在飯廳，又點了蠟燭進去廚房。外頭果真一片昏暗，就算是精靈也難以看見遠處。
+
+接著，你聞到了一陣香氣，米飯、醬油、鹽巴、火腿還有淡淡地焦香。不久，夏洛特用餐盤端著東西出來。
+「因為中午的飯還有剩下，我就隨便炒了些。」把餐盤擺在你的桌上。粒粒分明的米飯被染成了金黃色，火腿被切成方形，分佈著細膩的白色油花，要搖晃中的燈火下，透著晶瑩，青蔥讓炒飯帶了一點綠意，明明只是人人都會做得簡單料理，在夏洛特的手下，卻宛如人間逸品，令人食指大動。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 11:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="893882361454919690" id="message-893882361454919690" title="Message sent: 02-Oct-21 11:29 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">精靈以手勢示意夏洛特就座，將一張餐巾攤展開來、鋪在她的膝上。
+「稍等一下。」說後就到廚櫃取用了瓷碟，將一半的炒飯分到碟上，擺於女孩面前，笑說道：「我們一人一半吧。」這時才拿了屬於自己的一份，回到座上，開始享用美食。</span>
+
+                                <span class="chatlog__edited-timestamp" title="02-Oct-21 11:29 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 11:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="893883026025615401" id="message-893883026025615401" title="Message sent: 02-Oct-21 11:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「恩……本來就是準備兩人份的。只是剛剛沒有分盤就是了。」夏洛特從壁櫥裡拿來兩根鐵湯匙，一支地給了翡翠。</span>
+
+                                <span class="chatlog__edited-timestamp" title="02-Oct-21 11:32 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">02-Oct-21 11:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="893889330232324156" id="message-893889330232324156" title="Message sent: 02-Oct-21 11:57 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「妳是從什麼時候開始喜愛上廚藝的？」精靈舀一匙香味四逸的炒飯，仔細品味後，咕嘟一聲，將這份暖意送進胃袋。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 12:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="893901193988935712" id="message-893901193988935712" title="Message sent: 03-Oct-21 12:44 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「嗯？什麼……什麼時候？做飯嗎？」被翡翠的問題愣了一下，舀了幾勺飯目光似是在回想。
+
+夏洛特意外地沒辦法立刻回答，遲了很久才，說：「……我很好奇，母親她究竟在看著什麼？」
+為了思考措辭，她又停頓了半晌：「小時候，就總有一種她嚮往著什麼？但是被束縛了……的感覺。再大一些，她教我怎麼料理，她很開心，雖然以前她也有開心時候，但感覺得出來，兩個是不一樣的。我不太明白為什麼？後來又大了一些，母親把我交給古蕾莎，回到皇宮去了，雖然她偶爾會回來，但是知道她的工作後，我好像就理解了。」
+「請不要誤會，我非常非常喜歡她喔？但是我還是很好奇，母親她的眼裡究竟在看什麼？思考什麼？沒有任何道理，但是我想，如果有一天我能做出一樣……或是超越她的味道，是不是就能完全了解了呢？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 09:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="894220022711455794" id="message-894220022711455794" title="Message sent: 03-Oct-21 09:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「如果不是為了母親，妳自己有從中得到快樂嗎？」精靈凝視著碟上粒粒分明的米飯，目光就像看向遙遠他方，又似是想詢問，卻自說自話：「研究歷史是我的本業，但學生時期的我其實並沒有特別喜愛這一學科。或者應該說...那時候的自己並不喜歡學習，覺得只要順其自然，再難的事情總有一天亦能學會。」
+
+「之後有幸認識了一位朋友...看著他從懵懵懂憧的入學新生，到學習進度慢慢超越了一直處於怠惰的我，本著競爭心態，我亦開始試著了解以往那些覺得艱深難明的知識，可惜每次頒布成績時總會以微少的分差落後於他。」
+
+「後來他早於我畢業，離開學校從事研究一段時間，之後又再度返校成為了我的老師......現在再次回想，那短短幾十年真是一段美好的時光。」精靈喚起了起埋藏在腦海深處的遙遠記憶，並化為零碎的言語，向女孩訴說。
+
+「......當時我並沒有意識到人類壽命的短暫，只覺得他們幾乎是以肉眼可見的速度老化，短短一生總是追求著些什麼，但每當取得巨大的成就後又迅速消逝，似乎什麼都沒有留下。」
+
+「『時間對於不同人的意義都不一樣嗎？』『從古到今，又到底有多少值得保留的事物消失在眾人的記憶之中？』出席他的葬禮的時候我不禁如此思考。」
+
+「『我其實渴望追尋真相並將它紀錄下來。』」
+
+「也就是從那時候起，我不再是以競爭的心態去學習。當再次翻讀一遍以往認為是枯燥乏味的古藉時，才赫然發覺那實在相當有趣。」
+
+「那位朋友雖然造就了現今的我，但不代表我要成為另一個他。」
+
+「所以，不要為了追隨母親的步伐而失去自我。她是她，妳是妳；不要為了她的快樂去烹飪，而要為了妳自己的快樂而烹飪。」精靈回過神後，緩緩說道。</span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Oct-21 10:18 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 10:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="894224597505945671" id="message-894224597505945671" title="Message sent: 03-Oct-21 10:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這一切，都是為了我自己，我想知道母親的目光看著哪裡……但是快樂嗎？」夏洛特思考一下，「快不快樂……我也不太清楚，但我想我是快樂的。不像是一般貴族那樣擅長社交，也不期望像是冒險者一樣在廣大世界，闖出一個名號……對我來說，只要一間廚房，一套廚具就夠了。」
+又沉默了好長一段時間……卻也不是一段真的十分漫長的時間。
+「我可能是害怕？但可能也不是。」沒頭沒尾的說出了這句話，「你看，愛梅萊明明也不是真的非常非常遙遠的距離……但是完全沒有親自前往的想法，而是讓梅小姐代替我去。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 10:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="894225530461777941" id="message-894225530461777941" title="Message sent: 03-Oct-21 10:13 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「為何會感到害怕呢？」她放輕了聲音，溫柔地詢問。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 10:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="894227053480673280" id="message-894227053480673280" title="Message sent: 03-Oct-21 10:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這個城鎮雖然還算是富饒，我們又是領主出生，但是這裡其實什麼也沒有。我小時候去過幾次米蘭，也不算完全不曉得真的繁榮是什麼模樣……總覺得差異太大了。如果像是梅小姐一樣，遊歷過那麼多國家，會不會最後變成不是自己呢？或是放下了廚具，變成另外的模樣。因為沒辦法想像自己會變成什麼樣子，所以害怕吧？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 11:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="894246503374258266" id="message-894246503374258266" title="Message sent: 03-Oct-21 11:36 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「隨著閱歷、見聞增加，心態多少會產生變化，但我認為這不一定是件壞事。」精靈想了想，又說道，「若是只駐足於一處，將會錯過許多美好事物。比方說，今天午餐的那盤辛辣醬汁米飯，要是我沒有來到紅杉嶺，也許就沒有機會嚐試得到了。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 11:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="894247796503351387" id="message-894247796503351387" title="Message sent: 03-Oct-21 11:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「恩……可能？至少，現在還沒有那個想法？」夏洛特的飯匙一直沒有停下來，一下子餐盤上的東西就快見底了。
+「梅小姐呢？梅小姐為了什麼踏上旅程的嗎？」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">03-Oct-21 11:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="894251387490304041" id="message-894251387490304041" title="Message sent: 03-Oct-21 11:55 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「我嗎？並沒有什麼深奧、遠大的理由──」她笑了笑，回答道，「金錢。」
+「研究需要花費大量的資金、遊歷各處需要旅費，有時候亦要利用金錢和某些人打交道、交換所需。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">04-Oct-21 12:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="894254428545232938" id="message-894254428545232938" title="Message sent: 04-Oct-21 12:07 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「這樣嗎？」夏洛特站起身來，走到水槽邊，用軟海綿和肥皂清洗餐盤。
+「想起來了……母親和我一起做的第一道菜就是蛋炒飯呢。」用乾布把盤子擦乾，放回櫃子。「只是，做不出來呢……那時候的味道。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">04-Oct-21 01:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="894273623236415529" id="message-894273623236415529" title="Message sent: 04-Oct-21 01:24 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">吃完最後一口飯，精靈用手帕擦乾淨嘴巴，並將食具帶到水槽清洗。
+「過往的美好事物總是會被回憶美化。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">04-Oct-21 08:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="894378575132778507" id="message-894378575132778507" title="Message sent: 04-Oct-21 08:21 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">夏洛特愣了一下，說：「梅小姐，也是笨拙的人呢？」
+「但是它必須是不一樣的，不是嗎？」提起桌面上的蠟燭，推門準備離開。「梅小姐，晚安。」</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/347355297297334272/93b6da93514c33924a69540822d5ab8a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TeddyBear#0188" data-user-id="347355297297334272" style="color: rgb(137,38,202)">梅．翡翠</span>
+
+
+        <span class="chatlog__timestamp">04-Oct-21 01:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="894459218499895307" id="message-894459218499895307" title="Message sent: 04-Oct-21 01:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">「是嗎。」精靈用布抹乾沾濕的雙手，向女孩說一聲：「晚安。」稍後亦準備回到自己的房間休息。</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/577001267541573634/5ca85c50216fab294aa501e9628163df.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="泠音#8352" data-user-id="577001267541573634" style="color: rgb(29,98,161)">泠音</span>
+
+
+        <span class="chatlog__timestamp">04-Oct-21 09:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="894577726307070033" id="message-894577726307070033" title="Message sent: 04-Oct-21 09:32 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">【To Be Continued】</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 119 message(s)</div>
+</div>
+
+</body>
+
+</html>
